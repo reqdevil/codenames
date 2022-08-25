@@ -1,0 +1,17 @@
+D:\Projects\codenames\api\BusinessLogic\bin\Debug\netcoreapp3.1\Service.deps.json
+D:\Projects\codenames\api\BusinessLogic\bin\Debug\netcoreapp3.1\Service.dll
+D:\Projects\codenames\api\BusinessLogic\bin\Debug\netcoreapp3.1\Service.pdb
+D:\Projects\codenames\api\BusinessLogic\obj\Debug\netcoreapp3.1\Service.csproj.AssemblyReference.cache
+D:\Projects\codenames\api\BusinessLogic\obj\Debug\netcoreapp3.1\Service.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\codenames\api\BusinessLogic\obj\Debug\netcoreapp3.1\Service.AssemblyInfoInputs.cache
+D:\Projects\codenames\api\BusinessLogic\obj\Debug\netcoreapp3.1\Service.AssemblyInfo.cs
+D:\Projects\codenames\api\BusinessLogic\obj\Debug\netcoreapp3.1\Service.csproj.CoreCompileInputs.cache
+D:\Projects\codenames\api\BusinessLogic\obj\Debug\netcoreapp3.1\Service.dll
+D:\Projects\codenames\api\BusinessLogic\obj\Debug\netcoreapp3.1\Service.pdb
+D:\Projects\codenames\api\BusinessLogic\bin\Debug\netcoreapp3.1\Core.dll
+D:\Projects\codenames\api\BusinessLogic\bin\Debug\netcoreapp3.1\Core.pdb
+D:\Projects\codenames\api\BusinessLogic\obj\Debug\netcoreapp3.1\Service.csproj.CopyComplete
+D:\Projects\codenames\api\BusinessLogic\bin\Debug\netcoreapp3.1\DataAccess.dll
+D:\Projects\codenames\api\BusinessLogic\bin\Debug\netcoreapp3.1\Entities.dll
+D:\Projects\codenames\api\BusinessLogic\bin\Debug\netcoreapp3.1\DataAccess.pdb
+D:\Projects\codenames\api\BusinessLogic\bin\Debug\netcoreapp3.1\Entities.pdb

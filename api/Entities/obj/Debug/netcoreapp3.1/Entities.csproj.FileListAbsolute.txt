@@ -1,0 +1,13 @@
+D:\Projects\codenames\api\Entities\bin\Debug\netcoreapp3.1\Entities.deps.json
+D:\Projects\codenames\api\Entities\bin\Debug\netcoreapp3.1\Entities.dll
+D:\Projects\codenames\api\Entities\bin\Debug\netcoreapp3.1\Entities.pdb
+D:\Projects\codenames\api\Entities\obj\Debug\netcoreapp3.1\Entities.csproj.AssemblyReference.cache
+D:\Projects\codenames\api\Entities\obj\Debug\netcoreapp3.1\Entities.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\codenames\api\Entities\obj\Debug\netcoreapp3.1\Entities.AssemblyInfoInputs.cache
+D:\Projects\codenames\api\Entities\obj\Debug\netcoreapp3.1\Entities.AssemblyInfo.cs
+D:\Projects\codenames\api\Entities\obj\Debug\netcoreapp3.1\Entities.csproj.CoreCompileInputs.cache
+D:\Projects\codenames\api\Entities\obj\Debug\netcoreapp3.1\Entities.dll
+D:\Projects\codenames\api\Entities\obj\Debug\netcoreapp3.1\Entities.pdb
+D:\Projects\codenames\api\Entities\bin\Debug\netcoreapp3.1\Entities.runtimeconfig.json
+D:\Projects\codenames\api\Entities\bin\Debug\netcoreapp3.1\Entities.runtimeconfig.dev.json
+D:\Projects\codenames\api\Entities\obj\Debug\netcoreapp3.1\Entities.genruntimeconfig.cache

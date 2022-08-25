@@ -1,0 +1,9 @@
+D:\Projects\codenames\api\BusinessLogic\bin\Debug\netcoreapp3.1\BusinessLogic.deps.json
+D:\Projects\codenames\api\BusinessLogic\bin\Debug\netcoreapp3.1\BusinessLogic.dll
+D:\Projects\codenames\api\BusinessLogic\bin\Debug\netcoreapp3.1\BusinessLogic.pdb
+D:\Projects\codenames\api\BusinessLogic\obj\Debug\netcoreapp3.1\BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\codenames\api\BusinessLogic\obj\Debug\netcoreapp3.1\BusinessLogic.AssemblyInfoInputs.cache
+D:\Projects\codenames\api\BusinessLogic\obj\Debug\netcoreapp3.1\BusinessLogic.AssemblyInfo.cs
+D:\Projects\codenames\api\BusinessLogic\obj\Debug\netcoreapp3.1\BusinessLogic.csproj.CoreCompileInputs.cache
+D:\Projects\codenames\api\BusinessLogic\obj\Debug\netcoreapp3.1\BusinessLogic.dll
+D:\Projects\codenames\api\BusinessLogic\obj\Debug\netcoreapp3.1\BusinessLogic.pdb

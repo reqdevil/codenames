@@ -1,0 +1,15 @@
+D:\Projects\codenames\api\DataAccess\bin\Debug\netcoreapp3.1\DataAccess.deps.json
+D:\Projects\codenames\api\DataAccess\bin\Debug\netcoreapp3.1\DataAccess.dll
+D:\Projects\codenames\api\DataAccess\bin\Debug\netcoreapp3.1\DataAccess.pdb
+D:\Projects\codenames\api\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.csproj.AssemblyReference.cache
+D:\Projects\codenames\api\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\codenames\api\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.AssemblyInfoInputs.cache
+D:\Projects\codenames\api\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.AssemblyInfo.cs
+D:\Projects\codenames\api\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.csproj.CoreCompileInputs.cache
+D:\Projects\codenames\api\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.dll
+D:\Projects\codenames\api\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.pdb
+D:\Projects\codenames\api\DataAccess\bin\Debug\netcoreapp3.1\Core.dll
+D:\Projects\codenames\api\DataAccess\bin\Debug\netcoreapp3.1\Entities.dll
+D:\Projects\codenames\api\DataAccess\bin\Debug\netcoreapp3.1\Core.pdb
+D:\Projects\codenames\api\DataAccess\bin\Debug\netcoreapp3.1\Entities.pdb
+D:\Projects\codenames\api\DataAccess\obj\Debug\netcoreapp3.1\DataAccess.csproj.CopyComplete
