@@ -64,7 +64,7 @@ namespace Service.Services
                 if (user.Password == decyrpted)
                 {
                     dalUser.GetUser(user.Username, ref user);
-                    user.accessToken = _tokenHelper.CreateToken(user);
+                    islemSonucu.accessToken = _tokenHelper.CreateToken(user);
                 } else
                 {
                     islemSonucu.Data = null;

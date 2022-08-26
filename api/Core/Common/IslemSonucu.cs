@@ -1,4 +1,5 @@
 ﻿using Core.Common.Enums;
+using Core.Utilities.Security.JWT;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -12,6 +13,7 @@ namespace Core.Common
         private IslemDurumu _islemDurumu;
         private readonly Func<IslemDurumu, ActionResult> _resultNotifier;
         public object Data { get; set; }
+        public AccessToken accessToken { get; set; }
 
         public IslemSonucu()
         {

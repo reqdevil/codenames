@@ -24,7 +24,5 @@ namespace Core.Models
 
         [Required]
         public string Password { get; set; }
-
-        public AccessToken accessToken { get; set; }
     }
 }
