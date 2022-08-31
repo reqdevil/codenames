@@ -15,8 +15,8 @@ namespace Entities
         public virtual DbSet<RoomWords> RoomWords { get; set; }
         public virtual DbSet<EncryptionKeys> EncryptionKeys { get; set; }
         public virtual DbSet<Passwords> Passwords { get; set; }
-        
-        
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -33,9 +33,8 @@ namespace Entities
 
                 entity.HasKey(e => e.Id);
 
-                entity.Property(e => e.Username)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.HasIndex(e => e.Username)
+                    .IsUnique();
 
                 entity.Property(e => e.Name)
                     .IsRequired();
@@ -43,8 +42,8 @@ namespace Entities
                 entity.Property(e => e.Surname)
                     .IsRequired();
 
-                entity.Property(e => e.Email)
-                    .IsRequired();
+                entity.HasIndex(e => e.Email)
+                    .IsUnique();
 
                 entity.HasOne(e => e.EncryptionKeys)
                     .WithOne(ek => ek.User)

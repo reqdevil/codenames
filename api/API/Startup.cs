@@ -33,6 +33,8 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped(typeof(CodenamesEntities));
+
             services.AddDbContext<DbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("CodenamesDatabase"));
@@ -46,11 +48,7 @@ namespace API
             services.AddTransient(typeof(IslemSonucu));
             
             services.AddDataProtection();
-
-            Console.WriteLine(Configuration.GetConnectionString("CodenamesDatabase"));
            
-            services.AddScoped(typeof(CodenamesEntities));
-
             services.AddControllers();
             services.AddSwaggerGen(s =>
             {
