@@ -110,7 +110,10 @@ namespace DataAccess.UnitOfWorks
         }
         #endregion
 
-        public UnitOfWork() { }
+        public UnitOfWork()
+        {
+            _codenamesEntities = new CodenamesEntities();
+        }
 
         public UnitOfWork(CodenamesEntities codenamesEntities)
         {

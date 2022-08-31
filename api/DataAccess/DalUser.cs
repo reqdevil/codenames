@@ -2,6 +2,7 @@
 using DataAccess.Base;
 using DataAccess.UnitOfWorks;
 using Entities;
+using System;
 using System.Linq;
 
 namespace DataAccess
@@ -10,9 +11,26 @@ namespace DataAccess
     {
         public void SignUser(ref Users user)
         {
-            using UnitOfWork worker = new UnitOfWork();
-            user = worker.UserRepository.Insert(user);
-            worker.Save();
+            try
+            {
+                using UnitOfWork worker = new UnitOfWork();
+                user = worker.UserRepository.Insert(user);
+                worker.Save();
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException.Message.Contains("IX_Users_Email"))
+                {
+                    throw new Exception("This email address is registered in our system");
+                }
+
+                if (e.InnerException.Message.Contains("IX_Users_Username"))
+                {
+                    throw new Exception("This username is taken");
+                }
+
+                throw e;
+            }
         }
 
         public int GetUserIdWithUsername(string username)

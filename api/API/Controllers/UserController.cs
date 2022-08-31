@@ -4,10 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Service.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.Controllers
 {
@@ -38,8 +34,6 @@ namespace API.Controllers
         [AllowAnonymous]
         public IActionResult Sign(User user)
         {
-            var valid = IsModelValid(user);
-
             islemSonucu = _userService.Sign(user);
 
             return Ok(islemSonucu);
