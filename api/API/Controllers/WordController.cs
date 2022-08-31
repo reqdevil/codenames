@@ -14,19 +14,19 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class WordsController : BaseController
+    public class WordController : BaseController
     {
-        private readonly ILogger<WordsController> _logger;
+        private readonly ILogger<WordController> _logger;
 
         private readonly IWordService _wordService;
 
-        public WordsController(ILogger<WordsController> logger, IWordService wordService)
+        public WordController(ILogger<WordController> logger, IWordService wordService)
         {
             _logger = logger;
             _wordService = wordService;
         }
 
-        [HttpPost("GetAllWords")]
+        [HttpGet("GetAllWords")]
         public IActionResult GetAllWords()
         {
             islemSonucu = _wordService.GetAllWords();
