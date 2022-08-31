@@ -3,8 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:game/Helpers/AppColors.dart';
 import 'package:game/Helpers/Helpers.dart';
+import 'package:game/Models/User.dart';
 import 'package:game/Services/API/Manager/ServerManager.dart';
 import 'package:game/Services/ToastService.dart';
+import 'package:game/Utilities/Constants.dart';
 import 'package:game/Widgets/CustomButton.dart';
 import 'package:game/Widgets/CustomTextField.dart';
 import 'package:game/Widgets/WidgetSlider.dart';
@@ -82,10 +84,6 @@ class _LoginPageState extends State<LoginPage> {
                       return "Please enter your password";
                     }
 
-                    if (!value.contains('@') || value.endsWith('@')) {
-                      return "Please check your password";
-                    }
-
                     return null;
                   },
                 ),
@@ -123,8 +121,32 @@ class _LoginPageState extends State<LoginPage> {
                       passwordController.text == "",
                   child: CustomButton(
                     labelText: "Login",
-                    onPressed: () {
-                      try {} on Exception catch (e) {
+                    onPressed: () async {
+                      if (!formKey.currentState!.validate()) {
+                        return;
+                      }
+
+                      User user = User(
+                        username: usernameController.text,
+                        password: passwordController.text,
+                        id: 0,
+                        email: 'string',
+                        name: 'string',
+                        surname: 'string',
+                      );
+
+                      try {
+                        final response = await _service.loginUser(
+                          path: LOGIN,
+                          params: user.toJson(),
+                          parseFunction: (data) => userFromJson(data),
+                        );
+
+                        user = response.data!;
+                        user.printUser();
+
+                        // TODO: Navigate Play Page
+                      } on Exception catch (e) {
                         ToastService.errorToast(
                           context,
                           "Error Occured",

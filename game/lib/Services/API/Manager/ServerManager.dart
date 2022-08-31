@@ -68,6 +68,10 @@ class ServerManager<T> implements BaseServerManager {
         body: jsonEncode(params),
       );
 
+      if (serverResponse.statusCode != 200) {
+        throw Exception("Something went wrong");
+      }
+
       final response = DataResponse<User>.fromJSON(
         serverResponse,
         parseFunction,
