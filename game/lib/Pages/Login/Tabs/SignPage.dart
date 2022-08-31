@@ -1,6 +1,11 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:game/Helpers/Helpers.dart';
+import 'package:game/Models/User.dart';
+import 'package:game/Services/API/Manager/ServerManager.dart';
+import 'package:game/Services/ToastService.dart';
+import 'package:game/Utilities/Constants.dart';
 import 'package:game/Widgets/CustomButton.dart';
 import 'package:game/Widgets/CustomTextField.dart';
 import 'package:game/Widgets/WidgetSlider.dart';
@@ -13,6 +18,8 @@ class SignPage extends StatefulWidget {
 }
 
 class _SignPageState extends State<SignPage> {
+  final _service = getIt<ServerManager>();
+
   final formKey = GlobalKey<FormState>();
 
   final usernameController = TextEditingController();
@@ -21,7 +28,7 @@ class _SignPageState extends State<SignPage> {
   final surnameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  bool isObscure = false;
+  bool isObscure = true;
   bool rememberMe = false;
 
   @override
@@ -67,6 +74,7 @@ class _SignPageState extends State<SignPage> {
               child: CustomTextField(
                 controller: emailController,
                 labelText: 'Email',
+                textInputType: TextInputType.emailAddress,
                 onChanged: (value) {
                   setState(() {});
                 },
@@ -105,7 +113,7 @@ class _SignPageState extends State<SignPage> {
             SlideFadeTransition(
               delayStart: const Duration(milliseconds: 600),
               child: CustomTextField(
-                controller: usernameController,
+                controller: surnameController,
                 labelText: 'Surname',
                 onChanged: (value) {
                   setState(() {});
@@ -159,9 +167,41 @@ class _SignPageState extends State<SignPage> {
                     surnameController.text == "" ||
                     passwordController.text == "",
                 child: CustomButton(
-                  hasState: true,
-                  labelText: "Giriş Yap",
-                  onPressed: () {},
+                  labelText: "Sign",
+                  onPressed: () async {
+                    if (!formKey.currentState!.validate()) {
+                      return;
+                    }
+
+                    User user = User(
+                      id: 0,
+                      username: usernameController.text,
+                      email: emailController.text,
+                      name: nameController.text,
+                      surname: surnameController.text,
+                      password: passwordController.text,
+                    );
+
+                    try {
+                      final response = await _service.signUser(
+                        path: SIGN,
+                        params: user.toJson(),
+                        parseFunction: (data) => userFromJson(data),
+                      );
+
+                      user = response.data!;
+                      user.printUser();
+
+                      // TODO: Navigate Play Page
+                    } on Exception catch (e) {
+                      ToastService.errorToast(
+                        context,
+                        "Error Occured",
+                        e.toString(),
+                        Alignment.bottomCenter,
+                      );
+                    }
+                  },
                 ),
               ),
             ),

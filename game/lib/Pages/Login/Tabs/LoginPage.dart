@@ -2,6 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:game/Helpers/AppColors.dart';
+import 'package:game/Helpers/Helpers.dart';
+import 'package:game/Services/API/Manager/ServerManager.dart';
+import 'package:game/Services/ToastService.dart';
 import 'package:game/Widgets/CustomButton.dart';
 import 'package:game/Widgets/CustomTextField.dart';
 import 'package:game/Widgets/WidgetSlider.dart';
@@ -14,6 +17,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _service = getIt<ServerManager>();
+
   final formKey = GlobalKey<FormState>();
 
   final passwordController = TextEditingController();
@@ -117,9 +122,17 @@ class _LoginPageState extends State<LoginPage> {
                   ignoring: usernameController.text == "" ||
                       passwordController.text == "",
                   child: CustomButton(
-                    hasState: true,
                     labelText: "Login",
-                    onPressed: () {},
+                    onPressed: () {
+                      try {} on Exception catch (e) {
+                        ToastService.errorToast(
+                          context,
+                          "Error Occured",
+                          e.toString(),
+                          Alignment.bottomCenter,
+                        );
+                      }
+                    },
                   ),
                 ),
               ),

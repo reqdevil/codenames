@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:game/Helpers/Helpers.dart';
 import 'package:game/Pages/Login/LoginTab.dart';
 
 void main() {
+  BasicHelpers().setupGetIt();
+
   runApp(const MyApp());
 }
 

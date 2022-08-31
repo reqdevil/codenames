@@ -1,6 +1,10 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:game/Helpers/Helpers.dart';
+import 'package:game/Models/Word.dart';
+import 'package:game/Services/API/Manager/ServerManager.dart';
+import 'package:game/Utilities/Constants.dart';
 import 'package:game/Widgets/CustomButton.dart';
 import 'package:game/Widgets/CustomTextField.dart';
 import 'package:game/Widgets/WidgetSlider.dart';
@@ -13,6 +17,8 @@ class AnonymousPage extends StatefulWidget {
 }
 
 class _AnonymousPageState extends State<AnonymousPage> {
+  final _service = getIt<ServerManager>();
+
   final formKey = GlobalKey<FormState>();
 
   final usernameController = TextEditingController();
@@ -55,9 +61,17 @@ class _AnonymousPageState extends State<AnonymousPage> {
               child: IgnorePointer(
                 ignoring: usernameController.text == "",
                 child: CustomButton(
-                  hasState: true,
                   labelText: "Giriş Yap",
-                  onPressed: () {},
+                  onPressed: () {
+                    try {
+                      _service.getAllWords(
+                        path: GET_ALL_WORD,
+                        parseFunction: (data) => wordFromJson(data),
+                      );
+                    } on Exception catch (e) {
+                      print(e);
+                    }
+                  },
                 ),
               ),
             ),
