@@ -21,7 +21,7 @@ namespace Entities
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\ProjectsV13;Initial Catalog=codenames;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=codenames;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             }
         }
 
@@ -36,6 +36,10 @@ namespace Entities
                 entity.HasIndex(e => e.Username)
                     .IsUnique();
 
+                entity.Property(e => e.Username)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
                 entity.Property(e => e.Name)
                     .IsRequired();
 
@@ -44,6 +48,9 @@ namespace Entities
 
                 entity.HasIndex(e => e.Email)
                     .IsUnique();
+
+                entity.Property(e => e.Email)
+                    .IsRequired();
 
                 entity.HasOne(e => e.EncryptionKeys)
                     .WithOne(ek => ek.User)

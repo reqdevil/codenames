@@ -11,3 +11,16 @@ D:\Projects\codenames\api\Entities\obj\Debug\netcoreapp3.1\Entities.pdb
 D:\Projects\codenames\api\Entities\bin\Debug\netcoreapp3.1\Entities.runtimeconfig.json
 D:\Projects\codenames\api\Entities\bin\Debug\netcoreapp3.1\Entities.runtimeconfig.dev.json
 D:\Projects\codenames\api\Entities\obj\Debug\netcoreapp3.1\Entities.genruntimeconfig.cache
+D:\Codes\codenames\api\Entities\bin\Debug\netcoreapp3.1\Entities.deps.json
+D:\Codes\codenames\api\Entities\bin\Debug\netcoreapp3.1\Entities.runtimeconfig.json
+D:\Codes\codenames\api\Entities\bin\Debug\netcoreapp3.1\Entities.runtimeconfig.dev.json
+D:\Codes\codenames\api\Entities\bin\Debug\netcoreapp3.1\Entities.dll
+D:\Codes\codenames\api\Entities\bin\Debug\netcoreapp3.1\Entities.pdb
+D:\Codes\codenames\api\Entities\obj\Debug\netcoreapp3.1\Entities.csproj.AssemblyReference.cache
+D:\Codes\codenames\api\Entities\obj\Debug\netcoreapp3.1\Entities.GeneratedMSBuildEditorConfig.editorconfig
+D:\Codes\codenames\api\Entities\obj\Debug\netcoreapp3.1\Entities.AssemblyInfoInputs.cache
+D:\Codes\codenames\api\Entities\obj\Debug\netcoreapp3.1\Entities.AssemblyInfo.cs
+D:\Codes\codenames\api\Entities\obj\Debug\netcoreapp3.1\Entities.csproj.CoreCompileInputs.cache
+D:\Codes\codenames\api\Entities\obj\Debug\netcoreapp3.1\Entities.dll
+D:\Codes\codenames\api\Entities\obj\Debug\netcoreapp3.1\Entities.pdb
+D:\Codes\codenames\api\Entities\obj\Debug\netcoreapp3.1\Entities.genruntimeconfig.cache
