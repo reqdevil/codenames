@@ -31,7 +31,7 @@ namespace Service.Services
             _cipherService = cipherService;
         }
 
-        public IslemSonucu Login(User user)
+        public IslemSonucu Login(UserViewModel user)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace Service.Services
             return islemSonucu;
         }
 
-        public IslemSonucu Sign(User user)
+        public IslemSonucu Sign(UserViewModel user)
         {
             try
             {

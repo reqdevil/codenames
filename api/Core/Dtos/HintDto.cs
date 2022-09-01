@@ -9,6 +9,6 @@ namespace Core.Dtos
     {
         public int UserId { get; set; }
 
-        public Word Word { get; set; }
+        public WordViewModel Word { get; set; }
     }
 }

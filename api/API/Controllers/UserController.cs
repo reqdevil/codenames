@@ -20,7 +20,7 @@ namespace API.Controllers
 
         [HttpPost("Login")]
         [AllowAnonymous]
-        public IActionResult Login(User user)
+        public IActionResult Login(UserViewModel user)
         {
             islemSonucu = _userService.Login(user);
 
@@ -29,7 +29,7 @@ namespace API.Controllers
 
         [HttpPost("Sign")]
         [AllowAnonymous]
-        public IActionResult Sign(User user)
+        public IActionResult Sign(UserViewModel user)
         {
             islemSonucu = _userService.Sign(user);
 

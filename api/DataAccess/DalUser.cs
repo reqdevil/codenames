@@ -39,12 +39,12 @@ namespace DataAccess
             return (from a in context.Users where a.Username == username select a.Id).FirstOrDefault();
         }
 
-        public void GetUser(string username, ref User user)
+        public void GetUser(string username, ref UserViewModel user)
         {
             using CodenamesEntities context = new CodenamesEntities();
             Users dalUser = (from a in context.Users where a.Username == username select a).FirstOrDefault();
 
-            User du = new User
+            UserViewModel du = new UserViewModel
             {
                 Id = dalUser.Id,
                 Email = dalUser.Email,

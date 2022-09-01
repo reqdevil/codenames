@@ -9,12 +9,12 @@ namespace API.Hubs
 {
     public class GameHub: Hub
     {
-        public async Task SendHint(int userId, Word hint)
+        public async Task SendHint(int userId, WordViewModel hint)
         {
             await Clients.Others.SendAsync("ReceiveHint", userId, hint);
         }
 
-        public async Task SendAnswer(int userId, Word hint)
+        public async Task SendAnswer(int userId, WordViewModel hint)
         {
             await Clients.Others.SendAsync("ReceiveAnswer", userId, hint);
         }
