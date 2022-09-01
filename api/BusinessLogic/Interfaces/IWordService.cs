@@ -7,6 +7,8 @@ namespace Service.Interfaces
 {
     public interface IWordService
     {
-        public IslemSonucu GetAllWords();
+        IslemSonucu GetAllWords();
+
+        IslemSonucu GetPlayWords();
     }
 }

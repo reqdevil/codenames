@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Core.Models
 {
-    public class User
+    public class UserViewModel
     {
         public int Id { get; set; }
 

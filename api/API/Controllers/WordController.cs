@@ -16,13 +16,10 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class WordController : BaseController
     {
-        private readonly ILogger<WordController> _logger;
-
         private readonly IWordService _wordService;
 
-        public WordController(ILogger<WordController> logger, IWordService wordService)
+        public WordController(IWordService wordService)
         {
-            _logger = logger;
             _wordService = wordService;
         }
 
@@ -30,6 +27,14 @@ namespace API.Controllers
         public IActionResult GetAllWords()
         {
             islemSonucu = _wordService.GetAllWords();
+
+            return Ok(islemSonucu);
+        }
+
+        [HttpGet("GetPlayWords")]
+        public IActionResult GePlayWords()
+        {
+            islemSonucu = _wordService.GetPlayWords();
 
             return Ok(islemSonucu);
         }

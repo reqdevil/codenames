@@ -7,7 +7,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:game/Helpers/AppColors.dart';
 import 'package:game/Utilities/Constants.dart';
 import 'package:game/Widgets/CounterText.dart';
-import 'package:game/Widgets/CustomCircularProgressIndicator.dart';
+import 'package:game/Widgets/ToastCircularProgressIndicator.dart';
 import 'package:game/Widgets/RippleAnimation.dart';
 
 class ToastService {
@@ -145,7 +145,7 @@ class ToastService {
                     ),
                     Align(
                       alignment: Alignment.topRight,
-                      child: CustomCircularProgressIndicator(
+                      child: ToastCircularProgressIndicator(
                         key: keyCircularProgress,
                         duration: progressDuration ??
                             const Duration(milliseconds: 5500),
@@ -157,13 +157,13 @@ class ToastService {
             ],
           ),
           onLongPressStart: (details) {
-            CustomCircularProgressIndicator widget = keyCircularProgress
-                .currentWidget as CustomCircularProgressIndicator;
+            ToastCircularProgressIndicator widget = keyCircularProgress
+                .currentWidget as ToastCircularProgressIndicator;
             widget.animationController?.stop();
           },
           onLongPressEnd: (details) {
-            CustomCircularProgressIndicator widget = keyCircularProgress
-                .currentWidget as CustomCircularProgressIndicator;
+            ToastCircularProgressIndicator widget = keyCircularProgress
+                .currentWidget as ToastCircularProgressIndicator;
             widget.animationController?.forward();
           },
           onVerticalDragUpdate: (details) {
@@ -337,7 +337,7 @@ class ToastService {
                     ),
                     Align(
                       alignment: Alignment.topRight,
-                      child: CustomCircularProgressIndicator(
+                      child: ToastCircularProgressIndicator(
                         key: keyCircularProgress,
                         duration: progressDuration ??
                             const Duration(milliseconds: 5500),
@@ -349,13 +349,13 @@ class ToastService {
             ],
           ),
           onLongPressStart: (details) {
-            CustomCircularProgressIndicator widget = keyCircularProgress
-                .currentWidget as CustomCircularProgressIndicator;
+            ToastCircularProgressIndicator widget = keyCircularProgress
+                .currentWidget as ToastCircularProgressIndicator;
             widget.animationController?.stop();
           },
           onLongPressEnd: (details) {
-            CustomCircularProgressIndicator widget = keyCircularProgress
-                .currentWidget as CustomCircularProgressIndicator;
+            ToastCircularProgressIndicator widget = keyCircularProgress
+                .currentWidget as ToastCircularProgressIndicator;
             widget.animationController?.forward();
           },
           onVerticalDragUpdate: (details) {
@@ -524,7 +524,7 @@ class ToastService {
                     ),
                     Align(
                       alignment: Alignment.topRight,
-                      child: CustomCircularProgressIndicator(
+                      child: ToastCircularProgressIndicator(
                         key: keyCircularProgress,
                         duration: progressDuration ??
                             const Duration(milliseconds: 5500),
@@ -536,13 +536,13 @@ class ToastService {
             ],
           ),
           onLongPressStart: (details) {
-            CustomCircularProgressIndicator widget = keyCircularProgress
-                .currentWidget as CustomCircularProgressIndicator;
+            ToastCircularProgressIndicator widget = keyCircularProgress
+                .currentWidget as ToastCircularProgressIndicator;
             widget.animationController?.stop();
           },
           onLongPressEnd: (details) {
-            CustomCircularProgressIndicator widget = keyCircularProgress
-                .currentWidget as CustomCircularProgressIndicator;
+            ToastCircularProgressIndicator widget = keyCircularProgress
+                .currentWidget as ToastCircularProgressIndicator;
             widget.animationController?.forward();
           },
           onVerticalDragUpdate: (details) {
@@ -715,7 +715,7 @@ class ToastService {
                   ),
                   Align(
                     alignment: Alignment.topRight,
-                    child: CustomCircularProgressIndicator(
+                    child: ToastCircularProgressIndicator(
                       key: keyCircularProgress,
                       duration: progressDuration ??
                           const Duration(milliseconds: 5500),
@@ -727,13 +727,13 @@ class ToastService {
           ],
         ),
         onLongPressStart: (details) {
-          CustomCircularProgressIndicator widget = keyCircularProgress
-              .currentWidget as CustomCircularProgressIndicator;
+          ToastCircularProgressIndicator widget = keyCircularProgress
+              .currentWidget as ToastCircularProgressIndicator;
           widget.animationController?.stop();
         },
         onLongPressEnd: (details) {
-          CustomCircularProgressIndicator widget = keyCircularProgress
-              .currentWidget as CustomCircularProgressIndicator;
+          ToastCircularProgressIndicator widget = keyCircularProgress
+              .currentWidget as ToastCircularProgressIndicator;
           widget.animationController?.forward();
         },
         onVerticalDragUpdate: (details) {
@@ -904,7 +904,7 @@ class ToastService {
                     ),
                     Align(
                       alignment: Alignment.topRight,
-                      child: CustomCircularProgressIndicator(
+                      child: ToastCircularProgressIndicator(
                         key: keyCircularProgress,
                         duration: progressDuration ??
                             const Duration(milliseconds: 5500),
@@ -916,13 +916,13 @@ class ToastService {
             ],
           ),
           onLongPressStart: (details) {
-            CustomCircularProgressIndicator widget = keyCircularProgress
-                .currentWidget as CustomCircularProgressIndicator;
+            ToastCircularProgressIndicator widget = keyCircularProgress
+                .currentWidget as ToastCircularProgressIndicator;
             widget.animationController?.stop();
           },
           onLongPressEnd: (details) {
-            CustomCircularProgressIndicator widget = keyCircularProgress
-                .currentWidget as CustomCircularProgressIndicator;
+            ToastCircularProgressIndicator widget = keyCircularProgress
+                .currentWidget as ToastCircularProgressIndicator;
             widget.animationController?.forward();
           },
           onVerticalDragUpdate: (details) {

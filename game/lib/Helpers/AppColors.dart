@@ -16,6 +16,15 @@ class AppColors {
   static Color successColor = Colors.green[400]!;
 
   static const Color black = Colors.black;
+  static const Color grey = Colors.grey;
   static const Color white = Colors.white;
   static const Color transparent = Colors.transparent;
+
+  static const Color redTeam = Color(0xff8e2a1c);
+  static const Color redBg = Color(0xff8b301a);
+  static const Color blueTeam = Color(0xff3285a2);
+  static const Color blueBg = Color(0xff236380);
+
+  static const Color cardBg = Color(0xfff5d8b4);
+  static const Color cardLine = Color(0xffb09678);
 }

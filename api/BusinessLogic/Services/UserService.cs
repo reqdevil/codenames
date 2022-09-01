@@ -16,29 +16,19 @@ namespace Service.Services
 {
     public class UserService : BaseService, IUserService
     {
-        private readonly CodenamesEntities _codenamesEntities;
         private readonly IUnitOfWork _worker;
 
         private readonly IPasswordHasher _passwordHasher;
         private readonly ITokenHelper _tokenHelper;
         private readonly ICipherService _cipherService;
 
-        private readonly IBaseRepository<Users> _userRepository;
-        private readonly IBaseRepository<Passwords> _passwordRepository;
-        private readonly IBaseRepository<EncryptionKeys> _keyRepository;
-
-        public UserService(IslemSonucu _islemSonucu, CodenamesEntities codenamesEntities, IUnitOfWork worker, ITokenHelper tokenHelper, IPasswordHasher passwordHasher, ICipherService cipherService) : base(_islemSonucu)
+        public UserService(IslemSonucu _islemSonucu, IUnitOfWork worker, ITokenHelper tokenHelper, IPasswordHasher passwordHasher, ICipherService cipherService) : base(_islemSonucu)
         {
-            _codenamesEntities = codenamesEntities;
             _worker = worker;
 
             _tokenHelper = tokenHelper;
             _passwordHasher = passwordHasher;
             _cipherService = cipherService;
-
-            _userRepository = new BaseRepository<Users>(_codenamesEntities);
-            _passwordRepository = new BaseRepository<Passwords>(_codenamesEntities);
-            _keyRepository = new BaseRepository<EncryptionKeys>(_codenamesEntities);
         }
 
         public IslemSonucu Login(User user)

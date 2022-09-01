@@ -11,13 +11,10 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class UserController : BaseController
     {
-        private readonly ILogger<UserController> _logger;
-
         private readonly IUserService _userService;
 
-        public UserController(ILogger<UserController> logger, IUserService userService)
+        public UserController(IUserService userService)
         {
-            _logger = logger;
             _userService = userService;
         }
 

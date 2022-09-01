@@ -6,8 +6,8 @@ namespace Service.Interfaces
 {
     public interface IUserService : IBaseService
     {
-        public IslemSonucu Login(User user);
+        IslemSonucu Login(User user);
 
-        public IslemSonucu Sign(User user);
+        IslemSonucu Sign(User user);
     }
 }

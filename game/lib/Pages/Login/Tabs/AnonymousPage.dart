@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:game/Helpers/Helpers.dart';
+import 'package:game/Models/User.dart';
 import 'package:game/Models/Word.dart';
+import 'package:game/Pages/PlayPage.dart';
 import 'package:game/Services/API/Manager/ServerManager.dart';
 import 'package:game/Utilities/Constants.dart';
 import 'package:game/Widgets/CustomButton.dart';
@@ -58,23 +60,26 @@ class _AnonymousPageState extends State<AnonymousPage> {
             const SizedBox(height: 30),
             SlideFadeTransition(
               delayStart: const Duration(milliseconds: 800),
-              child: IgnorePointer(
-                ignoring: usernameController.text == "",
-                child: CustomButton(
-                  labelText: "Giriş Yap",
-                  onPressed: () {
-                    try {
-                      _service.getAllWords(
-                        path: GET_ALL_WORD,
-                        parseFunction: (data) => wordFromJson(data),
-                      );
-                    } on Exception catch (e) {
-                      print(e);
-                    }
-                  },
-                ),
+              // child: IgnorePointer(
+              //   ignoring: usernameController.text == "",
+              child: CustomButton(
+                labelText: "Giriş Yap",
+                onPressed: () async {
+                  User user = User(
+                    username: "tihulu",
+                    email: "berkerr.tr@gmail.com",
+                    name: "Berk",
+                    surname: "Er",
+                  );
+
+                  await fadeNavigation(
+                    context: context,
+                    page: PlayPage(user: user),
+                  );
+                },
               ),
             ),
+            // ),
           ],
         ),
       ),

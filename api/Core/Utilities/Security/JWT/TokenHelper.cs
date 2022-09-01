@@ -24,7 +24,7 @@ namespace Core.Utilities.Security.JWT
             _accessTokenExpiration = DateTime.Now.AddMinutes(TokenOptions.AccessTokenExpiration);
         }
 
-        public AccessToken CreateToken(User user)
+        public AccessToken CreateToken(UserViewModel user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(TokenOptions.SecurityKey));
             var signingCredential = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
@@ -45,7 +45,7 @@ namespace Core.Utilities.Security.JWT
             };
         }
 
-        private IEnumerable<Claim> SetClaims(User user)
+        private IEnumerable<Claim> SetClaims(UserViewModel user)
         {
             var claims = new List<Claim>
             {

@@ -84,9 +84,8 @@ class ServerManager<T> implements BaseServerManager {
     }
   }
 
-  Future<ListResponse<Word>> getAllWords({
+  Future<ListResponse<Word>> getWords({
     required String path,
-    required Function parseFunction,
   }) async {
     try {
       final uri = Uri.parse(url + path);
@@ -95,12 +94,11 @@ class ServerManager<T> implements BaseServerManager {
 
       final response = ListResponse<Word>.fromJSON(
         serverResponse,
-        parseFunction,
+        (data) => wordFromJson(data),
       );
 
       return response;
     } on Exception catch (e) {
-      print(e);
       rethrow;
     }
   }

@@ -6,23 +6,23 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:game/Helpers/AppColors.dart';
 import 'package:game/Utilities/Constants.dart';
 
-class CustomCircularProgressIndicator extends StatefulWidget {
+class ToastCircularProgressIndicator extends StatefulWidget {
   final Duration duration;
   AnimationController? animationController;
 
-  CustomCircularProgressIndicator({
+  ToastCircularProgressIndicator({
     Key? key,
     required this.duration,
     this.animationController,
   }) : super(key: key);
 
   @override
-  CustomCircularProgressIndicatorState createState() =>
-      CustomCircularProgressIndicatorState();
+  ToastCircularProgressIndicatorState createState() =>
+      ToastCircularProgressIndicatorState();
 }
 
-class CustomCircularProgressIndicatorState
-    extends State<CustomCircularProgressIndicator>
+class ToastCircularProgressIndicatorState
+    extends State<ToastCircularProgressIndicator>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
 

@@ -1,3 +1,4 @@
+using API.Hubs;
 using Core.Common;
 using Core.Common.Helpers;
 using Core.Utilities.Security.JWT;
@@ -16,7 +17,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Service;
 using Service.Base;
-using System;
 using System.Text;
 
 namespace API
@@ -46,10 +46,11 @@ namespace API
             services.AddServices(Configuration);
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient(typeof(IslemSonucu));
-            
+
             services.AddDataProtection();
-           
+
             services.AddControllers();
+            services.AddSignalR();
             services.AddSwaggerGen(s =>
             {
                 s.SwaggerDoc("v1", new OpenApiInfo
@@ -118,7 +119,7 @@ namespace API
             }
 
             ContextHelper.SetHttpContextAccessor(accessor);
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -128,6 +129,7 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();/*.RequireAuthorization();*/
+                endpoints.MapHub<GameHub>("/gamesocket");
             });
         }
     }
