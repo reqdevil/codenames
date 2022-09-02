@@ -15,12 +15,14 @@ namespace API.Controllers
         private readonly IHubContext<GameHub> _hubContext;
 
         private readonly IWordService _wordService;
+        private readonly IGameService _gameService;
 
-        public GameController(IHubContext<GameHub> hubContext, IWordService wordService)
+        public GameController(IHubContext<GameHub> hubContext, IWordService wordService, IGameService gameService)
         {
             _hubContext = hubContext;
 
             _wordService = wordService;
+            _gameService = gameService;
         }
 
         [HttpPost("SendHint")]
@@ -42,7 +44,7 @@ namespace API.Controllers
         [HttpGet("StartGame")]
         public IActionResult StartGame(int roomId)
         {
-            islemSonucu = _wordService.GetPlayWords();
+            islemSonucu = _gameService.StartGame();
 
             return Ok(islemSonucu);
         }

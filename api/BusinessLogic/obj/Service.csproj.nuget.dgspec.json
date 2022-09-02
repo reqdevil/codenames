@@ -1,21 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Codes\\codenames\\api\\BusinessLogic\\Service.csproj": {}
+    "D:\\Projects\\codenames\\api\\BusinessLogic\\Service.csproj": {}
   },
   "projects": {
-    "D:\\Codes\\codenames\\api\\BusinessLogic\\Service.csproj": {
+    "D:\\Projects\\codenames\\api\\BusinessLogic\\Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Codes\\codenames\\api\\BusinessLogic\\Service.csproj",
+        "projectUniqueName": "D:\\Projects\\codenames\\api\\BusinessLogic\\Service.csproj",
         "projectName": "Service",
-        "projectPath": "D:\\Codes\\codenames\\api\\BusinessLogic\\Service.csproj",
-        "packagesPath": "C:\\Users\\Casper\\.nuget\\packages\\",
-        "outputPath": "D:\\Codes\\codenames\\api\\BusinessLogic\\obj\\",
+        "projectPath": "D:\\Projects\\codenames\\api\\BusinessLogic\\Service.csproj",
+        "packagesPath": "D:\\Users\\41575911384\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\codenames\\api\\BusinessLogic\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Casper\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "D:\\Users\\41575911384\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -28,14 +35,14 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\Codes\\codenames\\api\\Core\\Core.csproj": {
-                "projectPath": "D:\\Codes\\codenames\\api\\Core\\Core.csproj"
+              "D:\\Projects\\codenames\\api\\Core\\Core.csproj": {
+                "projectPath": "D:\\Projects\\codenames\\api\\Core\\Core.csproj"
               },
-              "D:\\Codes\\codenames\\api\\DataAccess\\DataAccess.csproj": {
-                "projectPath": "D:\\Codes\\codenames\\api\\DataAccess\\DataAccess.csproj"
+              "D:\\Projects\\codenames\\api\\DataAccess\\DataAccess.csproj": {
+                "projectPath": "D:\\Projects\\codenames\\api\\DataAccess\\DataAccess.csproj"
               },
-              "D:\\Codes\\codenames\\api\\Entities\\Entities.csproj": {
-                "projectPath": "D:\\Codes\\codenames\\api\\Entities\\Entities.csproj"
+              "D:\\Projects\\codenames\\api\\Entities\\Entities.csproj": {
+                "projectPath": "D:\\Projects\\codenames\\api\\Entities\\Entities.csproj"
               }
             }
           }
@@ -55,8 +62,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -65,22 +71,29 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.409\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Codes\\codenames\\api\\Core\\Core.csproj": {
+    "D:\\Projects\\codenames\\api\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Codes\\codenames\\api\\Core\\Core.csproj",
+        "projectUniqueName": "D:\\Projects\\codenames\\api\\Core\\Core.csproj",
         "projectName": "Core",
-        "projectPath": "D:\\Codes\\codenames\\api\\Core\\Core.csproj",
-        "packagesPath": "C:\\Users\\Casper\\.nuget\\packages\\",
-        "outputPath": "D:\\Codes\\codenames\\api\\Core\\obj\\",
+        "projectPath": "D:\\Projects\\codenames\\api\\Core\\Core.csproj",
+        "packagesPath": "D:\\Users\\41575911384\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\codenames\\api\\Core\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Casper\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "D:\\Users\\41575911384\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -136,8 +149,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -146,22 +158,29 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.409\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Codes\\codenames\\api\\DataAccess\\DataAccess.csproj": {
+    "D:\\Projects\\codenames\\api\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Codes\\codenames\\api\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "D:\\Projects\\codenames\\api\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "D:\\Codes\\codenames\\api\\DataAccess\\DataAccess.csproj",
-        "packagesPath": "C:\\Users\\Casper\\.nuget\\packages\\",
-        "outputPath": "D:\\Codes\\codenames\\api\\DataAccess\\obj\\",
+        "projectPath": "D:\\Projects\\codenames\\api\\DataAccess\\DataAccess.csproj",
+        "packagesPath": "D:\\Users\\41575911384\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\codenames\\api\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Casper\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "D:\\Users\\41575911384\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -174,11 +193,11 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\Codes\\codenames\\api\\Core\\Core.csproj": {
-                "projectPath": "D:\\Codes\\codenames\\api\\Core\\Core.csproj"
+              "D:\\Projects\\codenames\\api\\Core\\Core.csproj": {
+                "projectPath": "D:\\Projects\\codenames\\api\\Core\\Core.csproj"
               },
-              "D:\\Codes\\codenames\\api\\Entities\\Entities.csproj": {
-                "projectPath": "D:\\Codes\\codenames\\api\\Entities\\Entities.csproj"
+              "D:\\Projects\\codenames\\api\\Entities\\Entities.csproj": {
+                "projectPath": "D:\\Projects\\codenames\\api\\Entities\\Entities.csproj"
               }
             }
           }
@@ -212,8 +231,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -222,22 +240,29 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.409\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Codes\\codenames\\api\\Entities\\Entities.csproj": {
+    "D:\\Projects\\codenames\\api\\Entities\\Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Codes\\codenames\\api\\Entities\\Entities.csproj",
+        "projectUniqueName": "D:\\Projects\\codenames\\api\\Entities\\Entities.csproj",
         "projectName": "Entities",
-        "projectPath": "D:\\Codes\\codenames\\api\\Entities\\Entities.csproj",
-        "packagesPath": "C:\\Users\\Casper\\.nuget\\packages\\",
-        "outputPath": "D:\\Codes\\codenames\\api\\Entities\\obj\\",
+        "projectPath": "D:\\Projects\\codenames\\api\\Entities\\Entities.csproj",
+        "packagesPath": "D:\\Users\\41575911384\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\codenames\\api\\Entities\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Casper\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "D:\\Users\\41575911384\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -289,8 +314,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -299,7 +323,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.409\\RuntimeIdentifierGraph.json"
         }
       }
     }

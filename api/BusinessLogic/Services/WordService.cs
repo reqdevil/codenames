@@ -1,5 +1,6 @@
 ﻿using Core.Common;
 using Core.Common.Enums;
+using Core.Models;
 using DataAccess;
 using DataAccess.Repositories;
 using DataAccess.UnitOfWorks;
@@ -7,6 +8,7 @@ using Entities;
 using Service.Base;
 using Service.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Service.Services
@@ -35,9 +37,7 @@ namespace Service.Services
 
         public IslemSonucu GetPlayWords()
         {
-            Random random = new Random();
-
-            var list =_wordsRepository.GetAll().OrderBy(_ => Guid.NewGuid()).Take(25);
+            var list = _wordsRepository.GetAll().OrderBy(_ => Guid.NewGuid()).Take(25);
 
             islemSonucu.Data = list;
             islemSonucu.IslemDurumu = IslemDurumu.BasariylaTamamlandi;

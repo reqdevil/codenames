@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:game/Helpers/AppColors.dart';
-import 'package:game/Helpers/AppColors.dart';
 import 'package:game/Models/User.dart';
 import 'package:game/Widgets/CustomDivider.dart';
 

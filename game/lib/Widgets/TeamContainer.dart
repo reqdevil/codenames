@@ -6,10 +6,12 @@ import 'package:game/Utilities/Enums/Teams.dart';
 
 class TeamContainer extends StatelessWidget {
   final Teams team;
+  final int wordCount;
 
   const TeamContainer({
     Key? key,
     required this.team,
+    required this.wordCount,
   }) : super(key: key);
 
   @override
@@ -34,6 +36,61 @@ class TeamContainer extends StatelessWidget {
               ),
       ),
       width: MediaQuery.of(context).size.width / 3,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 15,
+          bottom: 15,
+          left: 10,
+          right: 10,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Spymaster",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.white,
+              ),
+            ),
+            const Text(
+              "username",
+              style: TextStyle(
+                fontSize: 15,
+                color: AppColors.white,
+              ),
+            ),
+            const Expanded(child: SizedBox.shrink()),
+            const Text(
+              "Agent:",
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.white,
+              ),
+            ),
+            const Text(
+              "username",
+              style: TextStyle(
+                fontSize: 15,
+                color: AppColors.white,
+              ),
+            ),
+            const Expanded(child: SizedBox.shrink()),
+            Center(
+              child: Text(
+                wordCount.toString(),
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

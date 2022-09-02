@@ -4,11 +4,11 @@ using System.Text;
 
 namespace Core.Common.Enums
 {
-    public enum WordAttribute
+    public enum Team
     {
-        Black = 0,
+        White = 0,
         Red = 1,
         Blue = 2,
-        White = 3,
+        Black = 3,
     }
 }

@@ -9,8 +9,6 @@ namespace Core.Models
     {
         public string Vocable { get; set; }
 
-        public int Count { get; set; }
-
-        public WordAttribute WordAttribute { get; set; }
+        public Team Team { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:game/Models/Game.dart';
 import 'package:game/Utilities/Constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:game/Models/User.dart';
@@ -99,6 +100,27 @@ class ServerManager<T> implements BaseServerManager {
 
       return response;
     } on Exception catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  Future<DataResponse<Game>> startGame({
+    required String path,
+  }) async {
+    try {
+      final uri = Uri.parse(url + path);
+
+      final serverResponse = await http.get(uri);
+
+      final response = DataResponse<Game>.fromJSON(
+        serverResponse,
+        (data) => gameFromJson(data),
+      );
+
+      return response;
+    } on Exception catch (e) {
+      print(e);
       rethrow;
     }
   }
