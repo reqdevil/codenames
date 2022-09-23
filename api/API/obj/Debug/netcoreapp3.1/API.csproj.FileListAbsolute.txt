@@ -185,3 +185,4 @@ D:\Codes\codenames\api\API\obj\Debug\netcoreapp3.1\API.csproj.CopyComplete
 D:\Codes\codenames\api\API\obj\Debug\netcoreapp3.1\API.dll
 D:\Codes\codenames\api\API\obj\Debug\netcoreapp3.1\API.pdb
 D:\Codes\codenames\api\API\obj\Debug\netcoreapp3.1\API.genruntimeconfig.cache
+D:\Projects\codenames\api\api\bin\Debug\netcoreapp3.1\Microsoft.AspNet.SignalR.Core.dll

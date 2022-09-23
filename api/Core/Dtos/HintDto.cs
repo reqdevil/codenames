@@ -7,8 +7,8 @@ namespace Core.Dtos
 {
     public class HintDto
     {
-        public int UserId { get; set; }
+        public string Word { get; set; }
 
-        public WordViewModel Word { get; set; }
+        public int Count { get; set; }
     }
 }

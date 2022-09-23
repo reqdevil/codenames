@@ -19,11 +19,10 @@ namespace Service.Services
 
         private readonly IBaseRepository<Words> _wordsRepository;
 
-        public WordService(IslemSonucu _islemSonucu, CodenamesEntities codenamesEntities) : base(_islemSonucu)
+        public WordService(IslemSonucu _islemSonucu, CodenamesEntities codenamesEntities, IBaseRepository<Words> wordsRepository) : base(_islemSonucu)
         {
             _codenamesEntities = codenamesEntities;
-
-            _wordsRepository = new BaseRepository<Words>(_codenamesEntities);
+            _wordsRepository = wordsRepository;
         }
 
         public IslemSonucu GetAllWords()
@@ -38,6 +37,15 @@ namespace Service.Services
         public IslemSonucu GetPlayWords()
         {
             var list = _wordsRepository.GetAll().OrderBy(_ => Guid.NewGuid()).Take(25);
+
+            islemSonucu.Data = list;
+            islemSonucu.IslemDurumu = IslemDurumu.BasariylaTamamlandi;
+            return islemSonucu;
+        }
+
+        public IslemSonucu GetRoomWords()
+        {
+            var list = _wordsRepository.GetAll().OrderBy(_ => Guid.NewGuid()).Take(3).ToList();
 
             islemSonucu.Data = list;
             islemSonucu.IslemDurumu = IslemDurumu.BasariylaTamamlandi;

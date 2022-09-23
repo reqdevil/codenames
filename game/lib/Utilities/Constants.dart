@@ -8,6 +8,9 @@ const String LOGIN = "User/Login";
 
 const String GET_ALL_WORDS = "Word/GetAllWords";
 const String GET_PLAY_WORDS = "Word/GetPlayWords";
+
+const String CREATE_ROOM = "Room/CreateRoom";
+const String JOIN_ROOM = "Room/JoinRoom";
 const String START_GAME = "Game/StartGame";
 
 ValueNotifier<bool> visible = ValueNotifier<bool>(true);

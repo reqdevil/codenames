@@ -2,11 +2,11 @@
 
 import 'dart:convert';
 
-import 'package:game/Models/Game.dart';
+import 'package:flutter/foundation.dart';
+import 'package:game/Services/SharedPreference.dart';
 import 'package:game/Utilities/Constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:game/Models/User.dart';
-import 'package:game/Models/Word.dart';
 import 'package:game/Services/API/Manager/BaseServerManager.dart';
 import 'package:game/Services/API/Response/BasicResponse.dart';
 import 'package:game/Services/API/Response/DataResponse.dart';
@@ -14,7 +14,7 @@ import 'package:game/Services/API/Response/ListResponse.dart';
 
 class ServerManager<T> implements BaseServerManager {
   final url = "http://10.0.2.2:25528/api/";
-  final headers = {
+  var headers = {
     "Content-Type": "application/json",
     "Connection": "Keep-Alive",
     "Keep-Alive": "timeout=5, max=1000",
@@ -47,10 +47,11 @@ class ServerManager<T> implements BaseServerManager {
       return loginUser(
         path: LOGIN,
         params: params,
-        parseFunction: parseFunction,
       );
     } on Exception catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       rethrow;
     }
   }
@@ -58,7 +59,6 @@ class ServerManager<T> implements BaseServerManager {
   Future<DataResponse<User>> loginUser({
     required String path,
     required Map<String, dynamic> params,
-    required Function parseFunction,
   }) async {
     try {
       final uri = Uri.parse(url + path);
@@ -75,52 +75,93 @@ class ServerManager<T> implements BaseServerManager {
 
       final response = DataResponse<User>.fromJSON(
         serverResponse,
-        parseFunction,
+        (data) => userFromJson(data),
       );
+
+      SharedPreference.saveValue("accessToken", response.accessToken!.token);
+
+      headers.addAll({
+        "Authorization": "Bearer ${response.accessToken!.token}",
+      });
 
       return response;
     } on Exception catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       rethrow;
     }
   }
 
-  Future<ListResponse<Word>> getWords({
+  Future<ListResponse<T>> postList({
     required String path,
+    required User user,
+    Map<String, dynamic>? params,
+    required Function(dynamic) parseFunction,
   }) async {
     try {
-      final uri = Uri.parse(url + path);
+      Uri uri;
+      if (params != null) {
+        final query = Uri(queryParameters: params).query;
+        uri = Uri.parse("$url$path?$query");
+      } else {
+        uri = Uri.parse(url + path);
+      }
 
       final serverResponse = await http.get(uri);
 
-      final response = ListResponse<Word>.fromJSON(
+      final response = ListResponse<T>.fromJSON(
         serverResponse,
-        (data) => wordFromJson(data),
+        (data) => parseFunction(data),
       );
 
       return response;
     } on Exception catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       rethrow;
     }
   }
 
-  Future<DataResponse<Game>> startGame({
+  Future<DataResponse<T>> postData({
     required String path,
+    required User user,
+    Map<String, dynamic>? params,
+    required Function(dynamic) parseFunction,
   }) async {
     try {
-      final uri = Uri.parse(url + path);
+      Uri uri;
+      if (params != null) {
+        final query = Uri(queryParameters: params).query;
+        final queryy = Uri(queryParameters: params);
+        print(queryy.toString());
+        uri = Uri.parse("$url$path?$query");
+      } else {
+        uri = Uri.parse(url + path);
+      }
 
-      final serverResponse = await http.get(uri);
+      final serverResponse = await http.post(
+        uri,
+        headers: headers,
+        body: jsonEncode(userToJson(user)),
+      );
 
-      final response = DataResponse<Game>.fromJSON(
+      final response = DataResponse<T>.fromJSON(
         serverResponse,
-        (data) => gameFromJson(data),
+        (data) => parseFunction(data),
+      );
+
+      headers.update(
+        "Authorization",
+        (value) => "Bearer ${response.accessToken!.token}",
       );
 
       return response;
     } on Exception catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       rethrow;
     }
   }

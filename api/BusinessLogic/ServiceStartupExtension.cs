@@ -16,6 +16,7 @@ namespace Service
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IWordService, WordService>();
             services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IRoomService, RoomService>();
 
             services.AddScoped<ITokenHelper, TokenHelper>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();

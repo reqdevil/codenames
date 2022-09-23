@@ -9,7 +9,7 @@ Game gameFromJson(Map<String, dynamic> json) => Game.fromJson(json);
 
 String gameToJson(Game data) => json.encode(data.toJson());
 
-class Game {
+class Game  {
   final Teams startingTeam;
   final Teams opposingTeam;
   final List<Word> wordList;

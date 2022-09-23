@@ -2,20 +2,23 @@
 
 import 'dart:convert';
 
+import 'package:game/Models/Helper/AccessToken.dart';
 import 'package:game/Utilities/Enums/IslemSonucu.dart';
 import 'package:http/http.dart';
 
-class DataResponse<T> {
+class DataResponse<T > {
   int? statusCode;
   IslemSonucu? islemSonucu;
   List<dynamic>? mesajlar;
   T? data;
+  AccessToken? accessToken;
 
   DataResponse({
     this.data,
     this.statusCode,
     this.islemSonucu,
     this.mesajlar,
+    required this.accessToken,
   });
 
   factory DataResponse.fromJSON(
@@ -29,6 +32,9 @@ class DataResponse<T> {
       islemSonucu: getIslemSonucuWithId(json["islemDurumu"]),
       mesajlar: json["mesajlar"],
       data: create(json["data"]),
+      accessToken: json["accessToken"] != null
+          ? tokenFromJson(json["accessToken"])
+          : null,
     );
   }
 }

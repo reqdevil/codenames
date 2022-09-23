@@ -139,7 +139,6 @@ class _LoginPageState extends State<LoginPage> {
                         final response = await _service.loginUser(
                           path: LOGIN,
                           params: user.toJson(),
-                          parseFunction: (data) => userFromJson(data),
                         );
 
                         user = response.data!;

@@ -11,6 +11,7 @@ using Entities;
 using Service.Base;
 using Service.Interfaces;
 using System;
+using System.Linq;
 
 namespace Service.Services
 {
@@ -22,24 +23,28 @@ namespace Service.Services
         private readonly ITokenHelper _tokenHelper;
         private readonly ICipherService _cipherService;
 
-        public UserService(IslemSonucu _islemSonucu, IUnitOfWork worker, ITokenHelper tokenHelper, IPasswordHasher passwordHasher, ICipherService cipherService) : base(_islemSonucu)
+        private readonly IBaseRepository<Users> _userRepository;
+        private readonly IBaseRepository<Passwords> _passwordRepository;
+        private readonly IBaseRepository<EncryptionKeys> _keyRepository;
+
+        public UserService(IslemSonucu _islemSonucu, IUnitOfWork worker, ITokenHelper tokenHelper, IPasswordHasher passwordHasher, ICipherService cipherService, IBaseRepository<Users> userRepository, IBaseRepository<Passwords> passwordRepository, IBaseRepository<EncryptionKeys> keyRepository) : base(_islemSonucu)
         {
             _worker = worker;
 
             _tokenHelper = tokenHelper;
             _passwordHasher = passwordHasher;
             _cipherService = cipherService;
+
+            _userRepository = userRepository;
+            _passwordRepository = passwordRepository;
+            _keyRepository = keyRepository;
         }
 
         public IslemSonucu Login(UserViewModel user)
         {
             try
             {
-                using DalUser dalUser = new DalUser();
-                using DalPassword dalPassword = new DalPassword();
-                using DalEncryption dalEncryption = new DalEncryption();
-
-                user.Id = dalUser.GetUserIdWithUsername(user.Username);
+                user.Id = _userRepository.Select(u => u.Username == user.Username).FirstOrDefault().Id;
 
                 if (user.Id == 0)
                 {
@@ -49,11 +54,21 @@ namespace Service.Services
                     return islemSonucu;
                 }
 
-                var decyrpted = _cipherService.Decrypt(dalPassword.GetPassword(user.Id), dalEncryption.GetEncryption(user.Id));
+                var pwd = _passwordRepository.Select(p => p.UserId == user.Id).FirstOrDefault().Value;
+                var key = _keyRepository.Select(k => k.UserId == user.Id).FirstOrDefault().Value;
+                var decyrpted = _cipherService.Decrypt(pwd, key);
 
                 if (user.Password == decyrpted)
                 {
-                    dalUser.GetUser(user.Username, ref user);
+                    Users u = _userRepository.Select(u => u.Username == user.Username).FirstOrDefault();
+                    user = new UserViewModel
+                    {
+                        Username = u.Username,
+                        Id = u.Id,
+                        Email = u.Email,
+                        Name = u.Name,
+                        Surname = u.Surname,
+                    };
                     islemSonucu.accessToken = _tokenHelper.CreateToken(user);
                 } else
                 {
@@ -62,6 +77,10 @@ namespace Service.Services
                     islemSonucu.Mesajlar.Add("Kullanıcı Adı ile Şifreniz eşleşmemekte.");
                     return islemSonucu;
                 }
+
+                islemSonucu.Data = user;
+                islemSonucu.IslemDurumu = IslemDurumu.BasariylaTamamlandi;
+                return islemSonucu;
             }
             catch (Exception e)
             {
@@ -70,10 +89,6 @@ namespace Service.Services
                 islemSonucu.Mesajlar.Add(e.Message);
                 return islemSonucu;
             }
-
-            islemSonucu.Data = user;
-            islemSonucu.IslemDurumu = IslemDurumu.BasariylaTamamlandi;
-            return islemSonucu;
         }
 
         public IslemSonucu Sign(UserViewModel user)
@@ -88,26 +103,22 @@ namespace Service.Services
                     Email = user.Email,
                 };
 
-                using (DalUser dalUser = new DalUser())
-                {
-                    dalUser.SignUser(ref newUser);
-                }
+                newUser = _userRepository.Insert(newUser);
+                _worker.Save();
 
                 EncryptionKeys encryption = new EncryptionKeys { Value = _passwordHasher.Hash(user.Password) };
-                using (DalEncryption dalEncryption = new DalEncryption())
-                {
-                    encryption.UserId = newUser.Id;
-                    dalEncryption.InsertEncryptionKey(ref encryption);
-                }
+                encryption.UserId = newUser.Id;
+                encryption = _keyRepository.Insert(encryption);
 
-                using (DalPassword dalPassword = new DalPassword())
-                {
-                    Passwords password = new Passwords { Value = _cipherService.Encrypt(user.Password, encryption.Value) };
-                    password.UserId = newUser.Id;
-                    dalPassword.InsertPassword(ref password);
-                }
+                Passwords password = new Passwords { Value = _cipherService.Encrypt(user.Password, encryption.Value) };
+                password.UserId = newUser.Id;
+                _passwordRepository.Insert(password);
 
                 _worker.Save();
+
+                islemSonucu.Data = true;
+                islemSonucu.IslemDurumu = IslemDurumu.BasariylaTamamlandi;
+                return islemSonucu;
             }
             catch (Exception e)
             {
@@ -116,10 +127,6 @@ namespace Service.Services
                 islemSonucu.Mesajlar.Add(e.Message);
                 return islemSonucu;
             }
-
-            islemSonucu.Data = true;
-            islemSonucu.IslemDurumu = IslemDurumu.BasariylaTamamlandi;
-            return islemSonucu;
         }
     }
 }

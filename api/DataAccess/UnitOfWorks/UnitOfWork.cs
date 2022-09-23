@@ -112,7 +112,6 @@ namespace DataAccess.UnitOfWorks
 
         public UnitOfWork()
         {
-            _codenamesEntities = new CodenamesEntities();
         }
 
         public UnitOfWork(CodenamesEntities codenamesEntities)

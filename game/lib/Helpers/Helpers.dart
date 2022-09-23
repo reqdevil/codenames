@@ -28,3 +28,5 @@ Future<void> fadeNavigation({
     FadeNavigate(page: page),
   );
 }
+
+T? cast<T>(x) => x is T ? x : null;

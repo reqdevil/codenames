@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/API",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://127.0.0.1:25528",
       "sslPort": 0
@@ -15,7 +19,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://127.0.0.1:25528;http://127.0.0.1:5000"
+      "applicationUrl": "http://127.0.0.1:25528;http://127.0.0.1:5000;http://localhost:25528"
     },
     "API": {
       "commandName": "Project",
@@ -23,17 +27,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:25528"
-    },
-    "WSL": {
-      "commandName": "WSL2",
-      "launchBrowser": true,
-      "launchUrl": "http://localhost:5000/",
-      "environmentVariables": {
-        "ASPNETCORE_URLS": "http://localhost:5000",
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "distributionName": ""
+      "applicationUrl": "http://localhost:25528;http://127.0.0.1:25528"
     }
   }
 }

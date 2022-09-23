@@ -6,12 +6,12 @@ import 'package:game/Utilities/Enums/Teams.dart';
 
 class TeamContainer extends StatelessWidget {
   final Teams team;
-  final int wordCount;
+  final int? wordCount;
 
   const TeamContainer({
     Key? key,
     required this.team,
-    required this.wordCount,
+    this.wordCount,
   }) : super(key: key);
 
   @override
@@ -47,7 +47,7 @@ class TeamContainer extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "Spymaster",
+              "Spymaster:",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -78,16 +78,17 @@ class TeamContainer extends StatelessWidget {
               ),
             ),
             const Expanded(child: SizedBox.shrink()),
-            Center(
-              child: Text(
-                wordCount.toString(),
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.white,
+            if (wordCount != null)
+              Center(
+                child: Text(
+                  wordCount.toString(),
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.white,
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ),

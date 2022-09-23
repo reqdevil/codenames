@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Service;
@@ -34,7 +35,6 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped(typeof(CodenamesEntities));
-
             services.AddDbContext<DbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("CodenamesDatabase"));
@@ -46,8 +46,20 @@ namespace API
             services.AddServices(Configuration);
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient(typeof(IslemSonucu));
+            services.AddScoped<IGameHub, GameHub>();
 
             services.AddDataProtection();
+
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("Clientpermission", policy =>
+                {
+                    policy.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithOrigins("http://localhost:25528")
+                        .AllowCredentials();
+                });
+            });
 
             services.AddControllers();
             services.AddSignalR();
@@ -100,6 +112,24 @@ namespace API
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.SecurityKey))
                 };
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var token = context.Request.Query["token"];
+                        if (!token.IsNullOrEmpty())
+                        {
+                            context.Token = token;
+                        }
+
+                        return System.Threading.Tasks.Task.CompletedTask;
+                    },
+                    OnAuthenticationFailed = context =>
+                    {
+                        var exception = context.Exception;
+                        return System.Threading.Tasks.Task.CompletedTask;
+                    }
+                };
             });
         }
 
@@ -119,16 +149,17 @@ namespace API
             }
 
             ContextHelper.SetHttpContextAccessor(accessor);
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors("ClientPermission");
 
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();/*.RequireAuthorization();*/
+                endpoints.MapControllers().RequireAuthorization();
                 endpoints.MapHub<GameHub>("/gamesocket");
             });
         }

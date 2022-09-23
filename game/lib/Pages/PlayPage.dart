@@ -1,6 +1,6 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_print
 
-import 'dart:math';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:game/Helpers/AppColors.dart';
@@ -9,13 +9,14 @@ import 'package:game/Models/Game.dart';
 import 'package:game/Models/User.dart';
 import 'package:game/Services/API/Manager/ServerManager.dart';
 import 'package:game/Services/API/Response/DataResponse.dart';
+import 'package:game/Services/SharedPreference.dart';
 import 'package:game/Utilities/Constants.dart';
 import 'package:game/Utilities/Enums/Teams.dart';
 import 'package:game/Widgets/CardWidget.dart';
-import 'package:game/Widgets/CustomButton.dart';
 import 'package:game/Widgets/LogoCircularProgressIndicator.dart';
 import 'package:game/Widgets/CustomDrawer.dart';
 import 'package:game/Widgets/TeamContainer.dart';
+import 'package:signalr_netcore/signalr_client.dart' as signalr;
 
 class PlayPage extends StatefulWidget {
   final User user;
@@ -32,14 +33,14 @@ class PlayPage extends StatefulWidget {
 class _PlayPageState extends State<PlayPage> {
   final service = getIt<ServerManager>();
 
-  Future<DataResponse<Game>>? wordList;
+  Future<DataResponse<dynamic>>? wordList;
   late int blueRemaining;
   late int redRemaining;
   late bool endGame;
   late Widget body;
 
-  // final serverUrl = "http://10.0.2.2:25528/gamesocket";
-  // late HubConnection hubConnection;
+  final serverUrl = "http://10.0.2.2:25528/gamesocket";
+  late signalr.HubConnection hubConnection;
 
   @override
   void initState() {
@@ -52,7 +53,7 @@ class _PlayPageState extends State<PlayPage> {
     redRemaining = -1;
     endGame = false;
 
-    // initSignalR();
+    initSignalR();
   }
 
   @override
@@ -65,9 +66,17 @@ class _PlayPageState extends State<PlayPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          Navigator.pop(context);
+          hubConnection.state == signalr.HubConnectionState.Disconnected
+              ? await hubConnection.start()
+              : await hubConnection.stop();
+
+          setState(() {
+            print(hubConnection.state.toString());
+          });
         },
-        child: const Icon(Icons.stop),
+        child: hubConnection.state == signalr.ConnectionState.Disconnected
+            ? const Icon(Icons.play_arrow)
+            : const Icon(Icons.stop),
       ),
       drawer: CustomDrawer(user: widget.user),
       body: FutureBuilder(
@@ -97,10 +106,10 @@ class _PlayPageState extends State<PlayPage> {
             );
           }
 
-          final response = snapshot.data as DataResponse<Game>;
+          final game = (snapshot.data as DataResponse<dynamic>).data as Game;
 
           if (blueRemaining == -1 && redRemaining == -1) {
-            if (response.data!.startingTeam == Teams.blue) {
+            if (game.startingTeam == Teams.blue) {
               blueRemaining = 9;
               redRemaining = 8;
             } else {
@@ -121,9 +130,9 @@ class _PlayPageState extends State<PlayPage> {
                     crossAxisCount: 5,
                     childAspectRatio: 1.5,
                   ),
-                  itemCount: response.data!.wordList.length,
+                  itemCount: game.wordList.length,
                   itemBuilder: (context, index) {
-                    final item = response.data!.wordList[index];
+                    final item = game.wordList[index];
 
                     return Stack(
                       children: [
@@ -187,8 +196,7 @@ class _PlayPageState extends State<PlayPage> {
                                     item.isOpened = !item.isOpened;
 
                                     if (blueRemaining == 1) {
-                                      for (var item
-                                          in response.data!.wordList) {
+                                      for (var item in game.wordList) {
                                         if (item.team == Teams.blue &&
                                             item.isOpened == false) {
                                           item.image = const AssetImage(
@@ -197,8 +205,7 @@ class _PlayPageState extends State<PlayPage> {
                                         }
                                       }
                                     } else if (redRemaining == 1) {
-                                      for (var item
-                                          in response.data!.wordList) {
+                                      for (var item in game.wordList) {
                                         if (item.team == Teams.red &&
                                             item.isOpened == false) {
                                           item.image = const AssetImage(
@@ -222,7 +229,7 @@ class _PlayPageState extends State<PlayPage> {
           return IgnorePointer(
             ignoring: endGame,
             child: Container(
-              color: response.data!.startingTeam == Teams.red
+              color: game.startingTeam == Teams.red
                   ? AppColors.redBg
                   : AppColors.blueBg,
               padding: const EdgeInsets.only(top: kToolbarHeight),
@@ -236,7 +243,23 @@ class _PlayPageState extends State<PlayPage> {
                           team: Teams.red,
                           wordCount: redRemaining,
                         ),
-                        Expanded(child: Container()),
+                        Expanded(
+                          child: MaterialButton(
+                            child: const Text("data"),
+                            onPressed: () async {
+                              print("object");
+
+                              // await service.joinRoom(
+                              //   path: JOIN_ROOM,
+                              //   params: {
+                              //     "userId": "1",
+                              //     "roomName": "Berk",
+                              //   },
+                              // );
+                              hubConnection.invoke("JoinRoom", args: ["Berk"]);
+                            },
+                          ),
+                        ),
                         TeamContainer(
                           team: Teams.blue,
                           wordCount: blueRemaining,
@@ -259,24 +282,39 @@ class _PlayPageState extends State<PlayPage> {
     );
   }
 
-  // void initSignalR() {
-  //   hubConnection = HubConnectionBuilder().withUrl(serverUrl).build();
-  //   hubConnection.onclose(({error}) {
-  //     print("Connection closed.");
-  //   });
-  //   hubConnection.on("ReceiveHint", _handleHint);
-  // }
+  void initSignalR() {
+    hubConnection = signalr.HubConnectionBuilder().withUrl(serverUrl).build();
 
-  // void _handleHint(List<Object>? args) {
-  //   if (args != null) {
-  //     setState(() {
-  //       userId = args[0] as int;
-  //       hint = args[1] as String;
-  //     });
-  //   }
-  // }
+    hubConnection.onclose(({error}) {
+      print("Connection closed.");
+      setState(() {});
+    });
 
-  void initWord() {
-    wordList = service.startGame(path: START_GAME);
+    hubConnection.onreconnected(({connectionId}) {
+      print("Connection established.");
+      setState(() {});
+    });
+
+    hubConnection.on("UserJoined", _handleUser);
+    hubConnection.on("ReceiveHint", _handleHint);
+  }
+
+  void _handleHint(List<Object>? args) {
+    if (args != null) {
+      print("Args: ${args[0]} ${args[1]}");
+    }
+  }
+
+  void _handleUser(List<Object>? args) {
+    if (args != null) {
+      print("Args: ${args[0]}");
+    }
+  }
+
+  void initWord() async {
+    // wordList = service.getData(
+    //   path: START_GAME,
+    //   parseFunction: (data) => gameFromJson(data),
+    // );
   }
 }

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "+/97H/EpA0XnbFH8Fbvjdd787X5t6h8XfrHBf7yALg3M21CZr73GClca7xdTdfLUhqNRFPHRGj3rhr2IV5pkpA==",
+  "dgSpecHash": "UcOdfxZgHOhYXVw1Q8gPP0wxjhVTK5WBEmcJ26xQgveSR2eIKwuzZAtOXf6UUe//nOGA8bEejJxPE065dym/lw==",
   "success": true,
   "projectFilePath": "D:\\Projects\\codenames\\api\\BusinessLogic\\Service.csproj",
   "expectedPackageFiles": [
+    "D:\\Users\\41575911384\\.nuget\\packages\\microsoft.aspnet.signalr.core\\2.4.3\\microsoft.aspnet.signalr.core.2.4.3.nupkg.sha512",
     "D:\\Users\\41575911384\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "D:\\Users\\41575911384\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
     "D:\\Users\\41575911384\\.nuget\\packages\\microsoft.aspnetcore.authorization\\2.2.0\\microsoft.aspnetcore.authorization.2.2.0.nupkg.sha512",
@@ -139,5 +140,16 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.SignalR.Core 2.4.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.SignalR.Core",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }

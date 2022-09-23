@@ -28,15 +28,15 @@ namespace API.Controllers
         [HttpPost("SendHint")]
         public IActionResult SendHint(HintDto hint)
         {
-            _hubContext.Clients.All.SendAsync("ReceiveHint", hint.UserId, hint.Word);
-            
+            _hubContext.Clients.All.SendAsync("ReceiveHint", hint.Word, hint.Count);
+
             return Ok();
         }
 
         [HttpPost("SendAnswer")]
         public IActionResult SendAnswer(HintDto hint)
         {
-            _hubContext.Clients.All.SendAsync("ReceiveHint", hint.UserId, hint.Word);
+            _hubContext.Clients.All.SendAsync("ReceiveHint", hint.Word, hint.Count);
 
             return Ok();
         }

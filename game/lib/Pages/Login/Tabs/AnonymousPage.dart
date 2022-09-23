@@ -3,8 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:game/Helpers/Helpers.dart';
 import 'package:game/Models/User.dart';
+import 'package:game/Pages/MainPage.dart';
 import 'package:game/Pages/PlayPage.dart';
 import 'package:game/Services/API/Manager/ServerManager.dart';
+import 'package:game/Services/ToastService.dart';
+import 'package:game/Utilities/Constants.dart';
+import 'package:game/Utilities/Enums/IslemSonucu.dart';
 import 'package:game/Widgets/CustomButton.dart';
 import 'package:game/Widgets/CustomTextField.dart';
 import 'package:game/Widgets/WidgetSlider.dart';
@@ -17,7 +21,7 @@ class AnonymousPage extends StatefulWidget {
 }
 
 class _AnonymousPageState extends State<AnonymousPage> {
-  final _service = getIt<ServerManager>();
+  final service = getIt<ServerManager>();
 
   final formKey = GlobalKey<FormState>();
 
@@ -64,16 +68,38 @@ class _AnonymousPageState extends State<AnonymousPage> {
                 labelText: "Giriş Yap",
                 onPressed: () async {
                   User user = User(
-                    username: "tihulu",
-                    email: "berkerr.tr@gmail.com",
-                    name: "Berk",
-                    surname: "Er",
+                    username: "11111111",
+                    password: "11111111",
+                    id: 0,
+                    email: 'string',
+                    name: 'string',
+                    surname: 'string',
                   );
 
-                  await fadeNavigation(
-                    context: context,
-                    page: PlayPage(user: user),
-                  );
+                  try {
+                    final response = await service.loginUser(
+                      path: LOGIN,
+                      params: user.toJson(),
+                    );
+
+                    if (response.islemSonucu ==
+                        IslemSonucu.BasariylaTamamlandi) {
+                      await fadeNavigation(
+                        context: context,
+                        page: MainPage(user: response.data!),
+                      );
+                    } else {
+                      // ignore: use_build_context_synchronously
+                      ToastService.errorToast(
+                        context,
+                        "Error Occured",
+                        "There is a problem with login. Please try again",
+                        Alignment.bottomCenter,
+                      );
+                    }
+                  } on Exception catch (e) {
+                    print(e);
+                  }
                 },
               ),
             ),

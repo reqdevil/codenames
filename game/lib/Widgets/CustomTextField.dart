@@ -12,7 +12,7 @@ class CustomTextField extends StatefulWidget {
   final bool isObscure;
   final void Function()? onPressed;
   final TextInputType? textInputType;
-  final String? Function(String?) validator;
+  final String? Function(String?)? validator;
   final void Function(String)? onChanged;
 
   const CustomTextField({
@@ -24,7 +24,7 @@ class CustomTextField extends StatefulWidget {
     this.isObscure = false,
     this.onPressed,
     this.textInputType,
-    required this.validator,
+    this.validator,
     this.onChanged,
   }) : super(key: key);
 
@@ -136,7 +136,14 @@ class CustomTextFieldState extends State<CustomTextField> {
         minLines: 1,
         controller: widget.controller,
         keyboardType: widget.textInputType,
-        validator: widget.validator,
+        validator: widget.validator ??
+            (String? value) {
+              if (value == "") {
+                return "Please enter input.";
+              }
+
+              return null;
+            },
         obscureText: widget.isObscure,
         onEditingComplete: () {
           BasicHelpers().dissmissKeyboard(context);

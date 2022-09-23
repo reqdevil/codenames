@@ -2,8 +2,6 @@
 
 import 'dart:convert';
 
-import 'package:game/Models/Helper/AccessToken.dart';
-
 User userFromJson(Map<String, dynamic> json) => User.fromJson(json);
 
 String userToJson(User data) => json.encode(data.toJson());
@@ -15,8 +13,6 @@ class User {
   final String name;
   final String surname;
   final String? password;
-  final AccessToken? accessToken;
-
   User({
     required this.username,
     required this.email,
@@ -24,7 +20,6 @@ class User {
     required this.surname,
     this.password,
     this.id,
-    this.accessToken,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(

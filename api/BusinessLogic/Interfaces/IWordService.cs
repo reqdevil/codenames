@@ -11,5 +11,7 @@ namespace Service.Interfaces
         IslemSonucu GetAllWords();
 
         IslemSonucu GetPlayWords();
+
+        IslemSonucu GetRoomWords();
     }
 }
