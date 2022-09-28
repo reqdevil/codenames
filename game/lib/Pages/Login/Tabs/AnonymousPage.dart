@@ -79,7 +79,7 @@ class _AnonymousPageState extends State<AnonymousPage> {
                   try {
                     final response = await service.loginUser(
                       path: LOGIN,
-                      params: user.toJson(),
+                      user: user,
                     );
 
                     if (response.islemSonucu ==

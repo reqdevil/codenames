@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:game/Services/SharedPreference.dart';
 import 'package:game/Utilities/Constants.dart';
+import 'package:game/Utilities/Enums/IslemSonucu.dart';
 import 'package:http/http.dart' as http;
 import 'package:game/Models/User.dart';
 import 'package:game/Services/API/Manager/BaseServerManager.dart';
@@ -22,7 +23,7 @@ class ServerManager<T> implements BaseServerManager {
 
   Future<DataResponse<User>> signUser({
     required String path,
-    required Map<String, dynamic> params,
+    required User user,
     required Function parseFunction,
   }) async {
     try {
@@ -31,7 +32,7 @@ class ServerManager<T> implements BaseServerManager {
       final serverResponse = await http.post(
         uri,
         headers: headers,
-        body: jsonEncode(params),
+        body: userToJson(user),
       );
 
       if (serverResponse.statusCode != 200) {
@@ -46,7 +47,7 @@ class ServerManager<T> implements BaseServerManager {
 
       return loginUser(
         path: LOGIN,
-        params: params,
+        user: user,
       );
     } on Exception catch (e) {
       if (kDebugMode) {
@@ -58,7 +59,7 @@ class ServerManager<T> implements BaseServerManager {
 
   Future<DataResponse<User>> loginUser({
     required String path,
-    required Map<String, dynamic> params,
+    required User user,
   }) async {
     try {
       final uri = Uri.parse(url + path);
@@ -66,7 +67,7 @@ class ServerManager<T> implements BaseServerManager {
       final serverResponse = await http.post(
         uri,
         headers: headers,
-        body: jsonEncode(params),
+        body: userToJson(user),
       );
 
       if (serverResponse.statusCode != 200) {
@@ -133,10 +134,8 @@ class ServerManager<T> implements BaseServerManager {
     try {
       Uri uri;
       if (params != null) {
-        final query = Uri(queryParameters: params).query;
-        final queryy = Uri(queryParameters: params);
-        print(queryy.toString());
-        uri = Uri.parse("$url$path?$query");
+        final query = Uri(queryParameters: params).toString();
+        uri = Uri.parse("$url$path$query");
       } else {
         uri = Uri.parse(url + path);
       }
@@ -144,8 +143,16 @@ class ServerManager<T> implements BaseServerManager {
       final serverResponse = await http.post(
         uri,
         headers: headers,
-        body: jsonEncode(userToJson(user)),
+        body: userToJson(user),
       );
+
+      if (getIslemSonucuWithId(
+              jsonDecode(serverResponse.body)["islemDurumu"]) ==
+          IslemSonucu.HataNedeniyleTamamlanamadi) {
+        throw Exception(
+          "Error occured. Please try again later. If this error continues, please contact us.",
+        );
+      }
 
       final response = DataResponse<T>.fromJSON(
         serverResponse,

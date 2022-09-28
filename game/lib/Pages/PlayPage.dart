@@ -39,9 +39,6 @@ class _PlayPageState extends State<PlayPage> {
   late bool endGame;
   late Widget body;
 
-  final serverUrl = "http://10.0.2.2:25528/gamesocket";
-  late signalr.HubConnection hubConnection;
-
   @override
   void initState() {
     super.initState();
@@ -52,8 +49,6 @@ class _PlayPageState extends State<PlayPage> {
     blueRemaining = -1;
     redRemaining = -1;
     endGame = false;
-
-    initSignalR();
   }
 
   @override
@@ -64,20 +59,20 @@ class _PlayPageState extends State<PlayPage> {
         elevation: 0,
         backgroundColor: AppColors.transparent,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          hubConnection.state == signalr.HubConnectionState.Disconnected
-              ? await hubConnection.start()
-              : await hubConnection.stop();
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () async {
+      //     hubConnection.state == signalr.HubConnectionState.Disconnected
+      //         ? await hubConnection.start()
+      //         : await hubConnection.stop();
 
-          setState(() {
-            print(hubConnection.state.toString());
-          });
-        },
-        child: hubConnection.state == signalr.ConnectionState.Disconnected
-            ? const Icon(Icons.play_arrow)
-            : const Icon(Icons.stop),
-      ),
+      //     setState(() {
+      //       print(hubConnection.state.toString());
+      //     });
+      //   },
+      //   child: hubConnection.state == signalr.ConnectionState.Disconnected
+      //       ? const Icon(Icons.play_arrow)
+      //       : const Icon(Icons.stop),
+      // ),
       drawer: CustomDrawer(user: widget.user),
       body: FutureBuilder(
         future: wordList,
@@ -256,7 +251,7 @@ class _PlayPageState extends State<PlayPage> {
                               //     "roomName": "Berk",
                               //   },
                               // );
-                              hubConnection.invoke("JoinRoom", args: ["Berk"]);
+                              // hubConnection.invoke("JoinRoom", args: ["Berk"]);
                             },
                           ),
                         ),
@@ -282,34 +277,7 @@ class _PlayPageState extends State<PlayPage> {
     );
   }
 
-  void initSignalR() {
-    hubConnection = signalr.HubConnectionBuilder().withUrl(serverUrl).build();
-
-    hubConnection.onclose(({error}) {
-      print("Connection closed.");
-      setState(() {});
-    });
-
-    hubConnection.onreconnected(({connectionId}) {
-      print("Connection established.");
-      setState(() {});
-    });
-
-    hubConnection.on("UserJoined", _handleUser);
-    hubConnection.on("ReceiveHint", _handleHint);
-  }
-
-  void _handleHint(List<Object>? args) {
-    if (args != null) {
-      print("Args: ${args[0]} ${args[1]}");
-    }
-  }
-
-  void _handleUser(List<Object>? args) {
-    if (args != null) {
-      print("Args: ${args[0]}");
-    }
-  }
+  
 
   void initWord() async {
     // wordList = service.getData(

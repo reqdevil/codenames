@@ -185,7 +185,7 @@ class _SignPageState extends State<SignPage> {
                     try {
                       final response = await _service.signUser(
                         path: SIGN,
-                        params: user.toJson(),
+                        user: user,
                         parseFunction: (data) => userFromJson(data),
                       );
 

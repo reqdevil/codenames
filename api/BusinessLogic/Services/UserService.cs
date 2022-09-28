@@ -68,8 +68,9 @@ namespace Service.Services
                         Email = u.Email,
                         Name = u.Name,
                         Surname = u.Surname,
+                        Password = pwd,
                     };
-                    islemSonucu.accessToken = _tokenHelper.CreateToken(user);
+                    islemSonucu.AccessToken = _tokenHelper.CreateToken(user);
                 } else
                 {
                     islemSonucu.Data = null;

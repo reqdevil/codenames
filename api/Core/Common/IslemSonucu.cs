@@ -13,7 +13,7 @@ namespace Core.Common
         private IslemDurumu _islemDurumu;
         private readonly Func<IslemDurumu, ActionResult> _resultNotifier;
         public object Data { get; set; }
-        public AccessToken accessToken { get; set; }
+        public AccessToken AccessToken { get; set; }
 
         public IslemSonucu()
         {

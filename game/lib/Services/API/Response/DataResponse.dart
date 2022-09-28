@@ -6,7 +6,7 @@ import 'package:game/Models/Helper/AccessToken.dart';
 import 'package:game/Utilities/Enums/IslemSonucu.dart';
 import 'package:http/http.dart';
 
-class DataResponse<T > {
+class DataResponse<T> {
   int? statusCode;
   IslemSonucu? islemSonucu;
   List<dynamic>? mesajlar;
@@ -31,7 +31,10 @@ class DataResponse<T > {
       statusCode: response.statusCode,
       islemSonucu: getIslemSonucuWithId(json["islemDurumu"]),
       mesajlar: json["mesajlar"],
-      data: create(json["data"]),
+      data: getIslemSonucuWithId(json["islemDurumu"]) ==
+              IslemSonucu.BasariylaTamamlandi
+          ? create(json["data"])
+          : null,
       accessToken: json["accessToken"] != null
           ? tokenFromJson(json["accessToken"])
           : null,

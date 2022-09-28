@@ -35,6 +35,7 @@ class _LoginTabState extends State<LoginTab>
       vsync: this,
       initialIndex: 1,
     );
+
     _tabController.addListener(requestTabChange);
     changeTab(_tabController.index);
   }

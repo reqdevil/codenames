@@ -11,39 +11,41 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class RoomController : BaseController
     {
-        private readonly IGameHub _gameHub;
         private readonly IRoomService _roomService;
 
-        public RoomController(IRoomService roomService, IGameHub gameHub)
+        public RoomController(IRoomService roomService)
         {
             _roomService = roomService;
-            _gameHub = gameHub;
-        }
-
-
-        [HttpGet("CreateRoom")]
-        public IActionResult CreateRoom()
-        {
-            islemSonucu = _roomService.CreateRoom();
-
-            return Ok(islemSonucu);
-        }
-
-        [HttpGet("JoinRoom")]
-        public IActionResult JoinRoom(int userId, string roomName)
-        {
-            _gameHub.JoinRoom(roomName);
-
-            //islemSonucu = _roomService.JoinRoom(userId, roomName);
-
-            //return Ok(islemSonucu);
-            return Ok();
         }
 
         [HttpPost("FindRoom")]
         public IActionResult FindRoom(UserViewModel user)
         {
-            islemSonucu = _roomService.FindRoom(user.Id);
+            islemSonucu = _roomService.FindRoom(user);
+
+            return Ok(islemSonucu);
+        }
+
+        [HttpPost("CreateRoom")]
+        public IActionResult CreateRoom(UserViewModel user)
+        {
+            islemSonucu = _roomService.CreateRoom(user);
+
+            return Ok(islemSonucu);
+        }
+
+        [HttpPost("JoinRoom")]
+        public IActionResult JoinRoom(int roomId, UserViewModel user)
+        {
+            islemSonucu = _roomService.JoinRoom(roomId, user);
+
+            return Ok(islemSonucu);
+        }
+
+        [HttpPost("DeleteRoom")]
+        public IActionResult DeleteRoom(UserViewModel user)
+        {
+            islemSonucu = _roomService.DeleteRoom(user);
 
             return Ok(islemSonucu);
         }

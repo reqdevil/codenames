@@ -7,14 +7,14 @@ using System.Text;
 
 namespace Service.Interfaces
 {
-    public interface IRoomService: IBaseService
+    public interface IRoomService : IBaseService
     {
-        IslemSonucu FindRoomById(int userId, UserViewModel user);
+        IslemSonucu FindRoom(UserViewModel user);
 
-        IslemSonucu FindRoomByUsername(string username, UserViewModel user);
+        IslemSonucu CreateRoom(UserViewModel user);
 
-        IslemSonucu CreateRoom();
+        IslemSonucu JoinRoom(int roomId, UserViewModel user);
 
-        IslemSonucu JoinRoom(int userId, string roomName);
+        IslemSonucu DeleteRoom(UserViewModel user);
     }
 }

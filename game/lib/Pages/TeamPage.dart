@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:game/Helpers/AppColors.dart';
 import 'package:game/Models/Room.dart';
 import 'package:game/Models/User.dart';
+import 'package:game/Services/Provider/HubConnection.dart';
 import 'package:game/Utilities/Enums/Teams.dart';
 import 'package:game/Widgets/CustomDrawer.dart';
 import 'package:game/Widgets/TeamContainer.dart';
+import 'package:provider/provider.dart';
+import 'package:signalr_netcore/hub_connection.dart';
 
 class TeamPage extends StatefulWidget {
   final User user;
@@ -23,6 +26,19 @@ class TeamPage extends StatefulWidget {
 }
 
 class _TeamPageState extends State<TeamPage> {
+  late HubConnection hubConnection;
+
+  List<User>? userList;
+
+  @override
+  void initState() {
+    super.initState();
+
+    hubConnection = Provider.of<HubConnectionProvider>(context).hubConnection!;
+
+    joinRoom();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +46,12 @@ class _TeamPageState extends State<TeamPage> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColors.transparent,
+        title: FittedBox(
+          fit: BoxFit.fitWidth,
+          child: Text(
+            "${widget.room.id} - ${widget.room.roomName}",
+          ),
+        ),
       ),
       drawer: CustomDrawer(user: widget.user),
       body: Container(
@@ -38,7 +60,7 @@ class _TeamPageState extends State<TeamPage> {
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height / 4,
+              height: MediaQuery.of(context).size.height / 3,
               child: Row(
                 children: [
                   const TeamContainer(
@@ -55,14 +77,65 @@ class _TeamPageState extends State<TeamPage> {
               child: Container(
                 margin: const EdgeInsets.all(50),
                 child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   color: AppColors.bgColor,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      SizedBox(height: 10),
-                      Center(
-                        child: Text("Spectators"),
+                      const SizedBox(height: 10),
+                      const Center(
+                        child: Text(
+                          "Spectator(s)",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              widget.user.username,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              widget.user.username,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              widget.user.username,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              widget.user.username,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Text(
+                        "You need to have 4 people in order to choose team!!!",
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 10),
                     ],
                   ),
                 ),
@@ -72,5 +145,24 @@ class _TeamPageState extends State<TeamPage> {
         ),
       ),
     );
+  }
+
+  void joinRoom() {
+    hubConnection.invoke("JoinRoom", args: [widget.room.roomName]);
+
+    hubConnection.on("UserJoined", userJoin);
+    hubConnection.on("TeamJoined", teamJoin);
+  }
+
+  void userJoin(List<Object>? args) {
+    if (args != null) {
+      print(args);
+    }
+  }
+
+  void teamJoin(List<Object>? args) {
+    if (args != null) {
+      print(args);
+    }
   }
 }

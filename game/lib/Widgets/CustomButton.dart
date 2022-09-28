@@ -8,11 +8,17 @@ import 'package:game/Utilities/Enums/ButtonState.dart';
 class CustomButton extends StatefulWidget {
   final String labelText;
   final void Function()? onPressed;
+  final Color color;
+  final bool hasState;
+  final bool isEnabled;
 
   const CustomButton({
     Key? key,
     required this.labelText,
     required this.onPressed,
+    this.color = AppColors.black,
+    this.hasState = true,
+    this.isEnabled = true,
   }) : super(key: key);
 
   @override
@@ -32,7 +38,7 @@ class _CustomButtonState extends State<CustomButton> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.black),
+        border: Border.all(color: widget.color),
         borderRadius: BorderRadius.circular(10),
       ),
       child: RawMaterialButton(
@@ -43,65 +49,75 @@ class _CustomButtonState extends State<CustomButton> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        onPressed: () async {
-          setState(() {
-            state = ButtonState.submitting;
-          });
+        onPressed: widget.isEnabled
+            ? widget.hasState
+                ? () async {
+                    setState(() {
+                      state = ButtonState.submitting;
+                    });
 
-          await process();
+                    await process();
 
-          if (!mounted) return;
-          await Future.delayed(const Duration(seconds: 1));
-          if (mounted) {
-            setState(() {
-              state = ButtonState.completed;
+                    if (!mounted) return;
+                    await Future.delayed(const Duration(seconds: 1));
+                    if (mounted) {
+                      setState(() {
+                        state = ButtonState.completed;
 
-              if (state == ButtonState.completed) {
-                isWorking = false;
-              }
+                        if (state == ButtonState.completed) {
+                          isWorking = false;
+                        }
 
-              state = ButtonState.init;
-            });
-          }
-        },
+                        state = ButtonState.init;
+                      });
+                    }
+                  }
+                : widget.onPressed
+            : null,
         child: !isWorking
-            ? Align(
-                alignment: Alignment.center,
-                child: Text(
-                  widget.labelText,
-                  style: const TextStyle(
-                    color: AppColors.black,
-                    fontSize: 17,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    "Processing...",
+            ? Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    widget.labelText,
                     style: TextStyle(
-                      color: AppColors.black,
+                      color: widget.color,
                       fontSize: 17,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  SizedBox(width: 20),
-                  SizedBox(
-                    height: 20,
-                    child: AspectRatio(
-                      aspectRatio: 1,
-                      child: CircularProgressIndicator(
-                        backgroundColor: Colors.transparent,
-                        color: AppColors.black,
-                        strokeWidth: 2.5,
+                ),
+              )
+            : Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Processing...",
+                      style: TextStyle(
+                        color: widget.color,
+                        fontSize: 17,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 20),
+                    SizedBox(
+                      height: 20,
+                      child: AspectRatio(
+                        aspectRatio: 1,
+                        child: CircularProgressIndicator(
+                          backgroundColor: Colors.transparent,
+                          color: widget.color,
+                          strokeWidth: 2.5,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
       ),
     );
