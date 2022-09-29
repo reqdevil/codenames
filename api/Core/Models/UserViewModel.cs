@@ -10,8 +10,6 @@ namespace Core.Models
     {
         public int Id { get; set; }
 
-        public string ConnetionId { get; set; }
-
         [Required]
         public string Username { get; set; }
 

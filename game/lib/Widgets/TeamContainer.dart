@@ -11,6 +11,7 @@ class TeamContainer extends StatelessWidget {
   final int? wordCount;
   final bool allowJoin;
   final User? redSpy;
+  final void Function()? redSpyPressed;
   final User? redAgent;
   final User? blueSpy;
   final User? blueAgent;
@@ -24,6 +25,7 @@ class TeamContainer extends StatelessWidget {
     this.redAgent,
     this.blueSpy,
     this.blueAgent,
+    this.redSpyPressed,
   }) : super(key: key);
 
   @override
@@ -81,7 +83,7 @@ class TeamContainer extends StatelessWidget {
                 color: AppColors.white,
                 hasState: false,
                 isEnabled: allowJoin,
-                onPressed: () {},
+                onPressed: redSpyPressed,
               ),
             const Expanded(child: SizedBox.shrink()),
             const Text(

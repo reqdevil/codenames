@@ -31,10 +31,7 @@ class DataResponse<T> {
       statusCode: response.statusCode,
       islemSonucu: getIslemSonucuWithId(json["islemDurumu"]),
       mesajlar: json["mesajlar"],
-      data: getIslemSonucuWithId(json["islemDurumu"]) ==
-              IslemSonucu.BasariylaTamamlandi
-          ? create(json["data"])
-          : null,
+      data: json["data"] != null ? create(json["data"]) : null,
       accessToken: json["accessToken"] != null
           ? tokenFromJson(json["accessToken"])
           : null,

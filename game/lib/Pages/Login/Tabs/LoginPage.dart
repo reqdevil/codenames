@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:game/Helpers/AppColors.dart';
 import 'package:game/Helpers/Helpers.dart';
 import 'package:game/Models/User.dart';
+import 'package:game/Pages/MainPage.dart';
 import 'package:game/Services/API/Manager/ServerManager.dart';
+import 'package:game/Services/SharedPreference.dart';
 import 'package:game/Services/ToastService.dart';
 import 'package:game/Utilities/Constants.dart';
+import 'package:game/Utilities/Enums/IslemSonucu.dart';
 import 'package:game/Widgets/CustomButton.dart';
 import 'package:game/Widgets/CustomTextField.dart';
 import 'package:game/Widgets/WidgetSlider.dart';
@@ -19,7 +22,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _service = getIt<ServerManager>();
+  final service = getIt<ServerManager>();
 
   final formKey = GlobalKey<FormState>();
 
@@ -28,6 +31,13 @@ class _LoginPageState extends State<LoginPage> {
 
   bool isObscure = true;
   bool rememberMe = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    getSharedPreference();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,6 +136,13 @@ class _LoginPageState extends State<LoginPage> {
                         return;
                       }
 
+                      if (rememberMe) {
+                        SharedPreference.saveValue(
+                            "username", usernameController.text);
+                        SharedPreference.saveValue(
+                            "password", passwordController.text);
+                      }
+
                       User user = User(
                         username: usernameController.text,
                         password: passwordController.text,
@@ -136,15 +153,26 @@ class _LoginPageState extends State<LoginPage> {
                       );
 
                       try {
-                        final response = await _service.loginUser(
+                        final response = await service.loginUser(
                           path: LOGIN,
                           user: user,
                         );
 
-                        user = response.data!;
-                        user.printUser();
-
-                        // TODO: Navigate Play Page
+                        if (response.islemSonucu ==
+                            IslemSonucu.BasariylaTamamlandi) {
+                          await fadeNavigation(
+                            context: context,
+                            page: MainPage(user: response.data!),
+                          );
+                        } else {
+                          // ignore: use_build_context_synchronously
+                          ToastService.errorToast(
+                            context,
+                            "Error Occured",
+                            response.mesajlar!.first,
+                            Alignment.bottomCenter,
+                          );
+                        }
                       } on Exception catch (e) {
                         ToastService.errorToast(
                           context,
@@ -163,5 +191,19 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  void getSharedPreference() async {
+    var username = await SharedPreference.getValue("username");
+    if (username != null) usernameController.text = username;
+
+    var password = await SharedPreference.getValue("password");
+    if (password != null) passwordController.text = password;
+
+    if (username != null && password != null) {
+      setState(() {
+        rememberMe = true;
+      });
+    }
   }
 }

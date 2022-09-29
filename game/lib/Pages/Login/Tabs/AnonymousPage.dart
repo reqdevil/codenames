@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:game/Helpers/Helpers.dart';
 import 'package:game/Models/User.dart';
 import 'package:game/Pages/MainPage.dart';
-import 'package:game/Pages/PlayPage.dart';
 import 'package:game/Services/API/Manager/ServerManager.dart';
 import 'package:game/Services/ToastService.dart';
 import 'package:game/Utilities/Constants.dart';
@@ -93,12 +92,17 @@ class _AnonymousPageState extends State<AnonymousPage> {
                       ToastService.errorToast(
                         context,
                         "Error Occured",
-                        "There is a problem with login. Please try again",
+                        response.mesajlar!.first,
                         Alignment.bottomCenter,
                       );
                     }
                   } on Exception catch (e) {
-                    print(e);
+                    ToastService.errorToast(
+                      context,
+                      "Error Occured",
+                      e.toString(),
+                      Alignment.bottomCenter,
+                    );
                   }
                 },
               ),

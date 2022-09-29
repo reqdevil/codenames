@@ -11,6 +11,7 @@ using Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Service.Services
 {
@@ -47,10 +48,10 @@ namespace Service.Services
             {
                 RoomViewModel rmv = null;
                 parametreList.Add(new SqlParameter("@userId", user.Id));
-                string query = @"select r.Id, r.RoomName, r.IsActive from codenames.Users u
+                string query = @"select r.Id, r.RoomName, r.IsActive, r.AdminId from codenames.Users u
                                     inner join codenames.UserRooms ur on ur.UserId = u.Id
                                     inner join codenames.Rooms r on ur.RoomId = r.Id
-                                    where u.Id = @userId and r.IsActive = 1";
+                                    where u.Id = @userId and r.IsActive = 1 and r.AdminId = @userId";
 
                 Rooms room = _roomsRepository.GetSql(query, parametreList.ToArray()).FirstOrDefault();
 
@@ -102,6 +103,7 @@ namespace Service.Services
                         }
                     }
 
+                    Regex.Replace(roomName, @"\s+", "");
                     room = _roomsRepository.Select(r => r.RoomName == roomName).FirstOrDefault();
 
                     if (room != null)
@@ -116,6 +118,8 @@ namespace Service.Services
                             ur.UserId = user.Id;
                             _userRoomRepository.Update(ur);
                             room = _roomsRepository.Select(r => r.RoomName == roomName).FirstOrDefault();
+                            room.AdminId = user.Id;
+                            _roomsRepository.Update(room);
                             activeRoomName = false;
                         }
                     }
@@ -125,6 +129,7 @@ namespace Service.Services
                         {
                             RoomName = roomName,
                             IsActive = true,
+                            AdminId = user.Id,
                         };
 
                         _roomsRepository.Insert(room);
@@ -136,6 +141,7 @@ namespace Service.Services
                             UserId = user.Id,
                         };
                         _userRoomRepository.Insert(ur);
+                        activeRoomName = false;
                     }
                 } while (activeRoomName);
 
@@ -225,6 +231,7 @@ namespace Service.Services
                 if (room != null)
                 {
                     room.IsActive = false;
+                    room.AdminId = null;
                     _roomsRepository.Update(room);
 
                     IEnumerable<UserRooms> ur = _userRoomRepository.Select(ur => ur.RoomId == room.Id);
@@ -242,6 +249,39 @@ namespace Service.Services
                 return islemSonucu;
             }
             catch (Exception e)
+            {
+                islemSonucu.IslemDurumu = IslemDurumu.HataNedeniyleTamamlanamadi;
+                islemSonucu.Mesajlar.Add(e.Message);
+                return islemSonucu;
+            }
+        }
+
+        public IslemSonucu FindRoomAdmin(int roomId, UserViewModel user)
+        {
+            List<SqlParameter> parametreList = new List<SqlParameter>();
+
+            try
+            {
+                parametreList.Add(new SqlParameter("@roomId", roomId));
+                string query = @"select u.Email, u.Id, u.Name, u.Surname, u.Username from codenames.Users u
+                                    inner join codenames.Rooms r on u.Id = r.AdminId
+                                    where r.Id = @roomId and r.IsActive = 1";
+
+                Users u = _userRepository.GetSql(query, parametreList.ToArray()).FirstOrDefault();
+                UserViewModel uvm = new UserViewModel
+                {
+                    Id = u.Id,
+                    Username = u.Username,
+                    Name = u.Name,
+                    Surname = u.Surname,
+                    Email = u.Email,
+                };
+
+                islemSonucu.Data = uvm;
+                islemSonucu.AccessToken = _tokenHelper.CreateToken(user);
+                islemSonucu.IslemDurumu = IslemDurumu.BasariylaTamamlandi;
+                return islemSonucu;
+            } catch (Exception e)
             {
                 islemSonucu.IslemDurumu = IslemDurumu.HataNedeniyleTamamlanamadi;
                 islemSonucu.Mesajlar.Add(e.Message);

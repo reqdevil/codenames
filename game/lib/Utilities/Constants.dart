@@ -15,6 +15,7 @@ const String FIND_ROOM = "Room/FindRoom";
 const String CREATE_ROOM = "Room/CreateRoom";
 const String JOIN_ROOM = "Room/JoinRoom";
 const String DELETE_ROOM = "Room/DeleteRoom";
+const String FIND_ROOM_ADMIN = "Room/FindRoomAdmin";
 
 const String START_GAME = "Game/StartGame";
 

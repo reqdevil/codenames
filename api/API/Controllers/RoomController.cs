@@ -49,5 +49,13 @@ namespace API.Controllers
 
             return Ok(islemSonucu);
         }
+
+        [HttpPost("FindRoomAdmin")]
+        public IActionResult FindRoomAdmin(int roomId, UserViewModel user)
+        {
+            islemSonucu = _roomService.FindRoomAdmin(roomId, user);
+
+            return Ok(islemSonucu);
+        }
     }
 }

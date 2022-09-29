@@ -46,7 +46,6 @@ namespace API
             services.AddServices(Configuration);
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient(typeof(IslemSonucu));
-            services.AddScoped<IGameHub, GameHub>();
 
             services.AddDataProtection();
 

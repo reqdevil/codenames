@@ -8,12 +8,12 @@ class HubConnectionProvider extends ChangeNotifier {
 
   HubConnection? get hubConnection => _hubConnection;
 
-  void updateKisi(HubConnection hubConnection) {
+  void updateHub(HubConnection hubConnection) {
     _hubConnection = hubConnection;
     notifyListeners();
   }
 
-  void clearKisi() {
+  void clearHub() {
     _hubConnection = null;
     notifyListeners();
   }

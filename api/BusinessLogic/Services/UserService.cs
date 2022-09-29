@@ -75,7 +75,7 @@ namespace Service.Services
                 {
                     islemSonucu.Data = null;
                     islemSonucu.IslemDurumu = IslemDurumu.HataNedeniyleTamamlanamadi;
-                    islemSonucu.Mesajlar.Add("Kullanıcı Adı ile Şifreniz eşleşmemekte.");
+                    islemSonucu.Mesajlar.Add("Kullanıcı Adı ya da Şifreniz yanlış.");
                     return islemSonucu;
                 }
 

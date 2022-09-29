@@ -36,13 +36,19 @@ class ServerManager<T> implements BaseServerManager {
       );
 
       if (serverResponse.statusCode != 200) {
-        throw Exception("Something went wrong");
+        throw Exception("Something went wrong. Please try again later.");
+      }
+
+      if (getIslemSonucuWithId(
+              jsonDecode(serverResponse.body)["islemDurumu"]) ==
+          IslemSonucu.HataNedeniyleTamamlanamadi) {
+        throw Exception(jsonDecode(serverResponse.body)["mesajlar"]);
       }
 
       final response = BasicResponse.fromJSON(serverResponse);
 
       if (!response.data) {
-        throw Exception("Something went wrong");
+        throw Exception(response.mesajlar!.first);
       }
 
       return loginUser(
@@ -71,7 +77,13 @@ class ServerManager<T> implements BaseServerManager {
       );
 
       if (serverResponse.statusCode != 200) {
-        throw Exception("Something went wrong");
+        throw Exception("Something went wrong. Please try again later.");
+      }
+
+      if (getIslemSonucuWithId(
+              jsonDecode(serverResponse.body)["islemDurumu"]) ==
+          IslemSonucu.HataNedeniyleTamamlanamadi) {
+        throw Exception(jsonDecode(serverResponse.body)["mesajlar"]);
       }
 
       final response = DataResponse<User>.fromJSON(
@@ -111,10 +123,25 @@ class ServerManager<T> implements BaseServerManager {
 
       final serverResponse = await http.get(uri);
 
+      if (serverResponse.statusCode != 200) {
+        throw Exception("Something went wrong. Please try again later.");
+      }
+
+      if (getIslemSonucuWithId(
+              jsonDecode(serverResponse.body)["islemDurumu"]) ==
+          IslemSonucu.HataNedeniyleTamamlanamadi) {
+        throw Exception(jsonDecode(serverResponse.body)["mesajlar"]);
+      }
+
       final response = ListResponse<T>.fromJSON(
         serverResponse,
         (data) => parseFunction(data),
       );
+
+      // headers.update(
+      //   "Authorization",
+      //   (value) => "Bearer ${response.accessToken!.token}",
+      // );
 
       return response;
     } on Exception catch (e) {
@@ -146,12 +173,14 @@ class ServerManager<T> implements BaseServerManager {
         body: userToJson(user),
       );
 
+      if (serverResponse.statusCode != 200) {
+        throw Exception("Something went wrong. Please try again later.");
+      }
+
       if (getIslemSonucuWithId(
               jsonDecode(serverResponse.body)["islemDurumu"]) ==
           IslemSonucu.HataNedeniyleTamamlanamadi) {
-        throw Exception(
-          "Error occured. Please try again later. If this error continues, please contact us.",
-        );
+        throw Exception(jsonDecode(serverResponse.body)["mesajlar"]);
       }
 
       final response = DataResponse<T>.fromJSON(

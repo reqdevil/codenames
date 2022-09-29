@@ -39,8 +39,4 @@ class User {
         "email": email,
         "password": password,
       };
-
-  void printUser() {
-    print("$id: $username, $name, $surname, $email");
-  }
 }

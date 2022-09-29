@@ -16,5 +16,7 @@ namespace Service.Interfaces
         IslemSonucu JoinRoom(int roomId, UserViewModel user);
 
         IslemSonucu DeleteRoom(UserViewModel user);
+
+        IslemSonucu FindRoomAdmin(int roomId, UserViewModel user);
     }
 }

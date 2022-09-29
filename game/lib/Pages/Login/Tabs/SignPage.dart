@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:game/Helpers/Helpers.dart';
 import 'package:game/Models/User.dart';
+import 'package:game/Pages/MainPage.dart';
 import 'package:game/Services/API/Manager/ServerManager.dart';
 import 'package:game/Services/ToastService.dart';
 import 'package:game/Utilities/Constants.dart';
+import 'package:game/Utilities/Enums/IslemSonucu.dart';
 import 'package:game/Widgets/CustomButton.dart';
 import 'package:game/Widgets/CustomTextField.dart';
 import 'package:game/Widgets/WidgetSlider.dart';
@@ -190,9 +192,22 @@ class _SignPageState extends State<SignPage> {
                       );
 
                       user = response.data!;
-                      user.printUser();
 
-                      // TODO: Navigate Play Page
+                      if (response.islemSonucu ==
+                          IslemSonucu.BasariylaTamamlandi) {
+                        await fadeNavigation(
+                          context: context,
+                          page: MainPage(user: response.data!),
+                        );
+                      } else {
+                        // ignore: use_build_context_synchronously
+                        ToastService.errorToast(
+                          context,
+                          "Error Occured",
+                          response.mesajlar!.first,
+                          Alignment.bottomCenter,
+                        );
+                      }
                     } on Exception catch (e) {
                       ToastService.errorToast(
                         context,
